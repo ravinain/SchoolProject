@@ -13,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/WEB-INF/config/hibernate-config.xml", "/WEB-INF/config/servlet-config.xml",
-		"/WEB-INF/config/security-config.xml" })
+@ContextConfiguration(locations = { "/config/hibernate-config.xml", "/config/servlet-config.xml",
+		"/config/security-config.xml" })
 public class CourseServiceTest {
 	
 	@Autowired

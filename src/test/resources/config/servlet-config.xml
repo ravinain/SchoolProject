@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- Uncomment and your base-package here: -->
+	<context:component-scan base-package="org.school" />
+
+	<mvc:annotation-driven />
+	<mvc:resources location="pdfs" mapping="/pdfs/**"/>
+	
+	<security:global-method-security pre-post-annotations="enabled" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/view/" p:suffix=".jsp" p:order="2" />
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
+		p:contentNegotiationManager-ref="contentNegId" p:defaultViews-ref="defaultViewList"
+		p:order="1" />
+
+	<bean id="contentNegId"
+		class="org.springframework.web.accept.ContentNegotiationManager">
+		<constructor-arg>
+			<bean
+				class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+				<constructor-arg>
+					<map>
+						<entry key="json" value="application/json" />
+						<entry key="xml" value="application/xml" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<util:list id="defaultViewList">
+		<bean
+			class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+		<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+			<constructor-arg>
+				<bean class="org.springframework.oxm.xstream.XStreamMarshaller"
+					p:autodetectAnnotations="true" />
+			</constructor-arg>
+		</bean>
+	</util:list>
+
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="0" />
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"
+		p:defaultLocale="en" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="messages" />
+
+	<context:property-placeholder location="classpath:messages.properties" />
+
+	<import resource="/hibernate-config.xml" />
+
+</beans>
