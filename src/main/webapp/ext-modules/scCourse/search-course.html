@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Search Course</div>
+	<div class="panel-body">
+		<div class="well">
+			<form name="searchForm" class="form-inline">
+				<div class="form-group">
+					<label for="description">Name:</label> <select name="description"
+						class="form-control select-md"
+						data-ng-model="search.course.description"
+						data-ng-options="item as item.description for item in courses track by item.id">
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form-group">&nbsp;</div>
+				<div class="form-group">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="searchCourse()">Search</button>
+				</div>
+			</form>
+		</div>
+		<table class="table table-bordered table-hover sc-table"
+			data-ng-show="search.resultFlag">
+			<thead>
+				<tr>
+					<td data-ng-repeat="heading in search.course.header">{{heading}}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="data in search.course.data">
+					<td>{{data.id}}</td>
+					<td>{{data.description}}</td>
+					<td><span data-ng-repeat="subject in data.subjects">
+							{{subject.description}} {{$last?'':', '}} </span></td>
+					<td><span class="glyphicon glyphicon-pencil sc-pointer"></span></td>
+					<td><span class="glyphicon glyphicon-trash sc-pointer"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

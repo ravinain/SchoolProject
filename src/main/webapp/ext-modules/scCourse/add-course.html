@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Add Course</div>
+	<div class="panel-body">
+		<form class="form-horizontal" name="addForm">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="description">Name:
+				</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="description"
+						placeholder="Enter Course Name"
+						data-ng-model="add.course.description" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="subjects">Subjects:</label>
+				<div class="col-sm-4">
+					<select class="form-control" name="subjects"
+						data-ng-model="add.course.subjects" multiple="multiple"
+						data-ng-model="add.course.subjects"
+						data-ng-options="item as item.description for item in subjects track by item.id">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-3 text-right">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="addCourse()">Add</button>
+				</div>
+				<div class="col-sm-3 text-left">
+					<button type="button" class="btn sc-btn">Reset</button>
+				</div>
+			</div>
+			<br />
+			<div class="alert" data-ng-show="add.showMessage"
+				data-ng-class="{'alert-success':add.successFlag, 'alert-danger':!add.successFlag}">
+				<ul>
+					<li data-ng-repeat="msg in add.message">{{msg.message}}</li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+
+.select-md {
+	min-width: 170px;
+}
+
+.sc-table thead tr{
+	background-color: rgb(51, 51, 51);
+	color: #ffffff;
+}

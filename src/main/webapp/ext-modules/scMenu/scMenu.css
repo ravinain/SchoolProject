@@ -1,0 +1,81 @@
+@CHARSET "ISO-8859-1";
+
+.sc-menu-area {
+	position: relative;
+	background-color: #333;
+	color: #ccc;
+	padding-left:0;
+	width: 200px;
+	min-height: 100vh;
+	padding-top:30px;
+	float: left;
+}
+
+.sc-menu-area .btn:hover {
+	color: #ccc;
+}
+
+.sc-menu {
+	list-style-type: none;
+	vertical-align: top;
+	padding-left:0;
+}
+
+.sc-menu ul {
+	display: inline;
+	list-style-type: none;
+}
+
+.sc-menu li {
+	line-height: 3em;
+	cursor: pointer;
+}
+
+.sc-menu li div {
+	display: inline-block;
+	width: 90%;
+	padding-left: 16px;
+}
+
+.sc-selectable-item:hover {
+	background-color: #555;
+}
+
+.sc-menu-icon {
+	margin-right: 10px;
+}
+
+.sc-menu-active-indicator {
+	float: right;
+	color: #ddd;
+	margin-right: 0;
+	margin-top: 8px;
+}
+
+.sc-group-indicator-left {
+	float: right;
+	color: #ddd;
+	margin-right: 2px;
+	margin-top: 15px;
+}
+
+.sc-subitem-section {
+	padding-left:16px;
+	background-color: #444;
+}
+
+.sc-subitem-section .sc-selectable-item .sc-menu li {
+	line-height: 1em;
+	cursor: pointer;
+}
+
+.sc-fade-in-animation {
+	transition: linear all 0.5s;
+	-moz-transition:linear all 0.5s;
+	-o-transition:linear all 0.5s;
+	-webkit-transition:linear all 0.5s;
+}
+
+.sc-fade-in-animation.ng-hide {
+	opacity:0;
+}

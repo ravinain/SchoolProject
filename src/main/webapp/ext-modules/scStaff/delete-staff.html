@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Delete Staff</div>
+	<div class="panel-body">
+		<div class="well">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="name">Name:</label> <select name="name"
+						class="form-control select-md"
+						data-ng-model="delete.search.staff.name"
+						data-ng-options="item as item.name for item in staffs track by item.id">
+					</select>
+				</div>
+				<div class="form-group">&nbsp;</div>
+				<div class="form-group">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="delete.searchStaff()">Search</button>
+				</div>
+			</form>
+		</div>
+
+		<form class="form-horizontal" data-ng-show="delete.search.resultFlag"
+			name="delStaffForm">
+			<div class="form-group">
+				<label for="id" class="col-sm-2 control-label">ID:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="id" disabled
+						value="{{delete.staff.id}}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="name"
+						value="{{delete.staff.name}}" disabled />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="age">Age: </label>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" name="age"
+						placeholder="Enter Age" data-ng-model="delete.staff.age" disabled />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="gender">Gender: </label>
+				<div class="col-sm-4">
+					<label for="gender">Male</label> <input type="radio" value="Male"
+						name="gender" data-ng-model="delete.staff.gender" disabled /> <label
+						for="gender">Female</label> <input type="radio" value="Female"
+						name="gender" data-ng-model="delete.staff.gender" disabled />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="salary">Salary: </label>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" name="salary"
+						placeholder="Enter Salary" data-ng-model="delete.staff.salary"
+						disabled />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="roles">Roles: </label>
+				<div class="col-sm-4">
+					<select class="form-control" name="roles" multiple="multiple"
+						data-ng-model="delete.staff.roles"
+						data-ng-options="item as item.name for item in roles track by item.id"
+						disabled>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="subjects">Subjects:
+				</label>
+				<div class="col-sm-4">
+					<select class="form-control" name="subjects" multiple="multiple"
+						data-ng-model="delete.staff.subjects"
+						data-ng-options="item as item.description for item in subjects track by item.id"
+						disabled>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-3 text-right">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="deleteStaff()">Delete</button>
+				</div>
+				<div class="col-sm-3 text-left">
+					<button type="button" class="btn sc-btn">Reset</button>
+				</div>
+			</div>
+		</form>
+		<div class="alert"
+			data-ng-class="{'alert-success':!delete.errorFlag, 'alert-danger':delete.errorFlag}"
+			data-ng-show="delete.resultFlag">
+			<ul>
+				<li data-ng-repeat="msg in delete.resultMessage">{{msg.message}}</li>
+			</ul>
+		</div>
+	</div>
+</div>

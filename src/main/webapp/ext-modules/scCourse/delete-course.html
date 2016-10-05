@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Delete Course</div>
+	<div class="panel-body">
+		<div class="well">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="description">Name:</label> <select name="description"
+						class="form-control select-md"
+						data-ng-model="delete.search.course.description"
+						data-ng-options="item as item.description for item in courses track by item.id">
+					</select>
+				</div>
+				<div class="form-group">&nbsp;</div>
+				<div class="form-group">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="delete.searchCourse()">Search</button>
+				</div>
+			</form>
+		</div>
+
+		<form class="form-horizontal" data-ng-show="delete.search.resultFlag"
+			name="delCourseForm">
+			<div class="form-group">
+				<label for="id" class="col-sm-2 control-label">ID:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="id" disabled
+						value="{{delete.course.id}}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-sm-2 control-label">Name:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="description"
+						value="{{delete.course.description}}" disabled />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="subjects" class="col-sm-2 control-label">Subjects:</label>
+				<div class="col-sm-4">
+					<select name="subjects" class="form-control"
+						data-ng-model="delete.course.subjects"
+						data-ng-options="item as item.description for item in subjects track by item.id"
+						multiple="multiple" disabled>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-3 text-right">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="deleteCourse()">Delete</button>
+				</div>
+				<div class="col-sm-3 text-left">
+					<button type="button" class="btn sc-btn">Reset</button>
+				</div>
+			</div>
+		</form>
+		<div class="alert"
+			data-ng-class="{'alert-success':!delete.errorFlag, 'alert-danger':delete.errorFlag}"
+			data-ng-show="delete.resultFlag">
+			<ul>
+				<li data-ng-repeat="msg in delete.resultMessage">{{msg.message}}</li>
+			</ul>
+		</div>
+	</div>
+</div>

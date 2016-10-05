@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Search Role</div>
+	<div class="panel-body">
+		<div class="well">
+			<form name="searchForm" class="form-inline">
+				<div class="form-group">
+					<label for="name">Name:</label> <select name="name"
+						class="form-control select-md"
+						data-ng-model="search.role.name"
+						data-ng-options="item as item.name for item in roles track by item.id">
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form-group">&nbsp;</div>
+				<div class="form-group">
+					<button type="button" class="btn sc-btn"
+						data-ng-click="searchRole()">Search</button>
+				</div>
+			</form>
+		</div>
+		<table class="table table-bordered table-hover sc-table"
+			data-ng-show="search.resultFlag">
+			<thead>
+				<tr>
+					<td data-ng-repeat="heading in search.role.header">{{heading}}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="data in search.role.data">
+					<td>{{data.id}}</td>
+					<td>{{data.name}}</td>
+					<td><span class="glyphicon glyphicon-pencil sc-pointer"></span></td>
+					<td><span class="glyphicon glyphicon-trash sc-pointer"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

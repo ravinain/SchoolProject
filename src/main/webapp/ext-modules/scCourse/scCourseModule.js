@@ -1,0 +1,4 @@
+/**
+ * 
+ */
+angular.module("scCourse", ["scSubject"]);

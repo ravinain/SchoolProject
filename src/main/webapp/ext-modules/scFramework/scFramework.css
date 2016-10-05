@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+div > a {
+	color: #05f1c7;
+}
+
+.sc-view {
+	margin-left: 200px;
+	padding: 20px;
+	background-color: #ccc;
+	min-height: 100vh;
+	overflow: auto;
+}
+
+.sc-nav {
+	float:right;
+}
+
+.sc-nav a i {
+	padding-right:10px;
+}
+
+.sc-nav a {
+	font-size: 25px !important;
+}

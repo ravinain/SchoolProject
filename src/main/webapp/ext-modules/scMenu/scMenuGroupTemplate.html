@@ -1,0 +1,11 @@
+<li class="sc-selectable-item" data-ng-click="clicked()">
+	<div>
+		<i class="{{icon}} sc-menu-icon"></i>
+		{{label}}
+		<i class="fa fa-chevron-left sc-group-indicator-left" data-ng-class="{'fa-rotate-270':isOpen}"></i>
+	</div>
+</li>
+
+<div data-ng-show="isOpen" class="sc-subitem-section sc-fade-in-animation">
+	<ul data-ng-transclude></ul>
+</div>
