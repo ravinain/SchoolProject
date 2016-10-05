@@ -46,7 +46,7 @@ public class StaffDAOTest {
 	@Test
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void testSaveStaff() {
-		Staff staff = new Staff();
+		/*Staff staff = new Staff();
 		staff.setName("Test2");
 		staff.setAge(26);
 		staff.setSalary(20000);
@@ -64,7 +64,7 @@ public class StaffDAOTest {
 		
 		staffDao.addStaff(staff);
 		System.out.println(staff.getId());
-		System.out.println(staffDao.getStaff(staff.getId()));
+		System.out.println(staffDao.getStaff(staff.getId()));*/
 		
 	}
 }
