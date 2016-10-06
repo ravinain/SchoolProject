@@ -25,6 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 
+ * @author cdacr
+ * Controller of Course API.
+ */
 @Controller
 public class CourseController {
 
@@ -37,6 +42,10 @@ public class CourseController {
 	@Autowired
 	MessageSource messageSource;
 
+	/**
+	 * Request mapping to get all courses.
+	 * @return {@link ResponseEntity} 
+	 */
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getAllCourses() {
 		List<Course> courses = courseService.getAllCourses();
@@ -51,6 +60,11 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
+	/**
+	 * Return course detail of input id.
+	 * @param id 
+	 * @return {@link ResponseEntity}
+	 */
 	@RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("id") int id) {
 		Course course = courseService.getCourse(id);
@@ -66,6 +80,11 @@ public class CourseController {
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
 	
+	/**
+	 * Method returns course details based on input course description.
+	 * @param description 
+	 * @return {@link ResponseEntity} 
+	 */
 	@RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("description") String description) {
 		Course course = courseService.getCourse(description);
