@@ -150,9 +150,10 @@ public class StudentController {
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<?> handleAllException(final Exception exception) {
-    final String errorMsg = exception.getMessage() == null
-        ? "Exception occurred, see log for details." : exception.getMessage();
-    exception.printStackTrace();
+    String errorMsg = "Exception occurred, see log for details.";
+    if (exception.getMessage() != null) {
+      errorMsg = exception.getMessage();
+    }
     final MessageList messageList = context.getBean(MessageList.class);
     final Message msg = context.getBean(Message.class);
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));

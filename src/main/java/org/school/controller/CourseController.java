@@ -196,7 +196,10 @@ public class CourseController {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<?> handleAllException(final Exception exception) {
     String errorMsg = "Exception occurred, see log for details.";
-    errorMsg = exception.getMessage() == null ? errorMsg : exception.getMessage();
+    if (exception.getMessage() != null) {
+      errorMsg = exception.getMessage();
+    }
+
     exception.printStackTrace();
     final MessageList messageList = context.getBean(MessageList.class);
     final Message msg = context.getBean(Message.class);
