@@ -17,6 +17,10 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * Staff.
+ * @author cdacr
+ */
 @Entity
 @Table
 public final class Staff extends Person {
@@ -37,40 +41,71 @@ public final class Staff extends Person {
   @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE })
   private Set<Subject> subjects = new HashSet<Subject>();
 
+  /**
+   * get id.
+   * @return id
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * set id.
+   * @param id
+   *          id
+   */
   public void setId(final int id) {
     this.id = id;
   }
 
+  /**
+   * get Roles.
+   * @return {@link Set} of {@link Role}
+   */
   public Set<Role> getRoles() {
     return roles;
   }
 
+  /**
+   * set Roles.
+   * @param roles
+   *          {@link Set} of {@link Role}
+   */
   public void setRoles(final Set<Role> roles) {
     this.roles = roles;
   }
 
+  /**
+   * get salary.
+   * @return salary
+   */
   public double getSalary() {
     return salary;
   }
 
+  /**
+   * set salary.
+   * @param salary
+   *          salary
+   */
   public void setSalary(final double salary) {
     this.salary = salary;
   }
 
+  /**
+   * get subjects.
+   * @return {@link Set} of {@link Subject}
+   */
   public Set<Subject> getSubjects() {
     return subjects;
   }
 
+  /**
+   * set subjects.
+   * @param subjects
+   *          {@link Set} of {@link Subject}
+   */
   public void setSubjects(final Set<Subject> subjects) {
     this.subjects = subjects;
-  }
-
-  @Override
-  public String toString() {
-    return "Staff ID : " + id;
   }
 }

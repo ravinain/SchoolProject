@@ -16,6 +16,10 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Student.
+ * @author cdacr
+ */
 @Entity
 @Table
 public final class Student extends Person {
@@ -38,32 +42,54 @@ public final class Student extends Person {
           @JoinColumn(name = "subject_id", referencedColumnName = "id") })
   private Set<Subject> subjects = new HashSet<Subject>();
 
+  /**
+   * get Course.
+   * @return {@link Course}
+   */
   public Course getCourse() {
     return course;
   }
 
+  /**
+   * set Course.
+   * @param course
+   *          {@link Course}
+   */
   public void setCourse(final Course course) {
     this.course = course;
   }
 
+  /**
+   * get id.
+   * @return id
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * set id.
+   * @param id
+   *          id
+   */
   public void setId(final int id) {
     this.id = id;
   }
 
+  /**
+   * get subjects.
+   * @return {@link Set} of {@link Subject}
+   */
   public Set<Subject> getSubjects() {
     return subjects;
   }
 
+  /**
+   * set subjects.
+   * @param subjects
+   *          {@link Subject}
+   */
   public void setSubjects(final Set<Subject> subjects) {
     this.subjects = subjects;
-  }
-
-  @Override
-  public String toString() {
-    return "Student : " + this.id;
   }
 }

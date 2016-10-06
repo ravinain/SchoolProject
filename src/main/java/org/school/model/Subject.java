@@ -20,6 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Subject.
+ * @author cdacr
+ */
 @Entity
 @Table
 public final class Subject implements Comparable<Subject> {
@@ -49,51 +53,94 @@ public final class Subject implements Comparable<Subject> {
   @JsonIgnore
   private Set<Student> students = new HashSet<Student>();
 
+  /**
+   * get Staff.
+   * @return {@link Set} of {@link Staff}
+   */
   public Set<Staff> getStaffs() {
     return staffs;
   }
 
+  /**
+   * set Staff.
+   * @param staffs
+   *          {@link Set} of {@link Staff}
+   */
   public void setStaffs(final Set<Staff> staffs) {
     this.staffs = staffs;
   }
 
+  /**
+   * get id.
+   * @return id
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * set id.
+   * @param id
+   *          id
+   */
   public void setId(final int id) {
     this.id = id;
   }
 
+  /**
+   * get Description.
+   * @return description
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * set description.
+   * @param description
+   *          description
+   */
   public void setDescription(final String description) {
     this.description = description;
   }
 
+  /**
+   * get courses.
+   * @return {@link Set} of {@link Course}
+   */
   public Set<Course> getCourses() {
     return courses;
   }
 
+  /**
+   * set courses.
+   * @param courses
+   *          {@link Set} of {@link Course}
+   */
   public void setCourses(final Set<Course> courses) {
     this.courses = courses;
   }
 
+  /**
+   * get students.
+   * @return {@link Set} of {@link Student}
+   */
   public Set<Student> getStudents() {
     return students;
   }
 
+  /**
+   * set students.
+   * @param students
+   *          {@link Set} of {@link Student}
+   */
   public void setStudents(final Set<Student> students) {
     this.students = students;
   }
 
-  @Override
-  public String toString() {
-    return "Subject : " + this.id;
-  }
-
+  /**
+   * {@inheritDoc}}.
+   */
   @Override
   public boolean equals(final Object obj) {
     if (obj == null || getClass() != obj.getClass()) {
@@ -107,12 +154,21 @@ public final class Subject implements Comparable<Subject> {
     return this.getId() == subject.getId();
   }
 
+  /**
+   * {@inheritDoc}}.
+   */
   @Override
   public int hashCode() {
     return 22 * 7 + this.id;
   }
 
-  public int compareTo(final Subject o) {
-    return this.id - o.id;
+  /**
+   * Compare subjects.
+   * @param obj
+   *          {@link Subject}
+   * @return {@link Integer}
+   */
+  public int compareTo(final Subject obj) {
+    return this.id - obj.id;
   }
 }
