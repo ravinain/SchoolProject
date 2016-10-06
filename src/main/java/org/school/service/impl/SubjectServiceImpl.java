@@ -2,7 +2,7 @@ package org.school.service.impl;
 
 import java.util.List;
 
-import org.school.dao.SubjectDAO;
+import org.school.dao.SubjectDao;
 import org.school.model.Subject;
 import org.school.response.Message;
 import org.school.response.MessageList;
@@ -15,88 +15,88 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-@Service(value="subjectService")
-@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+@Service(value = "subjectService")
+@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public class SubjectServiceImpl implements SubjectService {
 
-	@Autowired
-	SubjectDAO subjectDao;
-	
-	@Autowired
-	MessageSource messageSource;
-	
-	public List<Subject> getSubjects() {
-		return subjectDao.getAllSubjects();
-	}
+  @Autowired
+  SubjectDao subjectDao;
 
-	public Subject getSubject(int id) {
-		return subjectDao.getSubject(id);
-	}
+  @Autowired
+  MessageSource messageSource;
 
-	public Subject getSubject(String name) {
-		return subjectDao.getSubject(name);
-	}
+  public List<Subject> getSubjects() {
+    return subjectDao.getAllSubjects();
+  }
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList saveSubject(Subject subject, BindingResult result) {
-		MessageList messageList = new MessageList();
-		if(result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError:fieldErrors) {
-				Message message = new Message();
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
-				messageList.addMessage(message);
-			}
-		} else 	if(!isSubjectExists(subject.getDescription())) {
-			subjectDao.saveSubject(subject);
-		} else {
-			Message message = new Message();
-			message.setField("subject");
-			message.setMessage("Subject already exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public Subject getSubject(final int id) {
+    return subjectDao.getSubject(id);
+  }
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList updateSubject(Subject subject, BindingResult result) {
-		MessageList messageList = new MessageList();
-		if(result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError:fieldErrors) {
-				Message message = new Message();
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
-				messageList.addMessage(message);
-			}
-		} else 	if(isSubjectExists(subject.getId())) {
-			subjectDao.updateSubject(subject);
-		} else {
-			Message message = new Message();
-			message.setField("subject");
-			message.setMessage("Subject ID : "+subject.getId()+", does not exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public Subject getSubject(final String name) {
+    return subjectDao.getSubject(name);
+  }
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public boolean deleteSubject(int id) {
-		boolean delFlag = false;
-		if(isSubjectExists(id)) {
-			delFlag = true;
-			subjectDao.deleteSubject(id);
-		}
-		return delFlag;
-	}
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList saveSubject(final Subject subject, final BindingResult result) {
+    final MessageList messageList = new MessageList();
+    if (result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = new Message();
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        messageList.addMessage(message);
+      }
+    } else if (!isSubjectExists(subject.getDescription())) {
+      subjectDao.saveSubject(subject);
+    } else {
+      final Message message = new Message();
+      message.setField("subject");
+      message.setMessage("Subject already exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
 
-	public boolean isSubjectExists(int id) {
-		return subjectDao.isSubjectExists(id);
-	}
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList updateSubject(final Subject subject, final BindingResult result) {
+    final MessageList messageList = new MessageList();
+    if (result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = new Message();
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        messageList.addMessage(message);
+      }
+    } else if (isSubjectExists(subject.getId())) {
+      subjectDao.updateSubject(subject);
+    } else {
+      final Message message = new Message();
+      message.setField("subject");
+      message.setMessage("Subject ID : " + subject.getId() + ", does not exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
 
-	public boolean isSubjectExists(String name) {
-		return subjectDao.isSubjectExists(name);
-	}
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public boolean deleteSubject(final int id) {
+    boolean delFlag = false;
+    if (isSubjectExists(id)) {
+      delFlag = true;
+      subjectDao.deleteSubject(id);
+    }
+    return delFlag;
+  }
+
+  public boolean isSubjectExists(final int id) {
+    return subjectDao.isSubjectExists(id);
+  }
+
+  public boolean isSubjectExists(final String name) {
+    return subjectDao.isSubjectExists(name);
+  }
 
 }

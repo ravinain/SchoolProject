@@ -21,56 +21,56 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 public class Staff extends Person {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Min(100)
-	private double salary;
-	
-	@OneToMany(mappedBy = "staff", fetch=FetchType.EAGER)
-	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE})
-	@NotEmpty
-	private Set<Role> roles = new HashSet<Role>();
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-	@ManyToMany(mappedBy = "staffs", fetch=FetchType.EAGER)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE})
-	private Set<Subject> subjects = new HashSet<Subject>();
+  @Min(100)
+  private double salary;
 
-	public int getId() {
-		return id;
-	}
+  @OneToMany(mappedBy = "staff", fetch = FetchType.EAGER)
+  @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE })
+  @NotEmpty
+  private Set<Role> roles = new HashSet<Role>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
+  @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE })
+  private Set<Subject> subjects = new HashSet<Subject>();
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+  public void setId(final int id) {
+    this.id = id;
+  }
 
-	public double getSalary() {
-		return salary;
-	}
+  public Set<Role> getRoles() {
+    return roles;
+  }
 
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
+  public void setRoles(final Set<Role> roles) {
+    this.roles = roles;
+  }
 
-	public Set<Subject> getSubjects() {
-		return subjects;
-	}
+  public double getSalary() {
+    return salary;
+  }
 
-	public void setSubjects(Set<Subject> subjects) {
-		this.subjects = subjects;
-	}
-	
-	@Override
-	public String toString() {
-		return "Staff ID : "+id;
-	}
+  public void setSalary(final double salary) {
+    this.salary = salary;
+  }
+
+  public Set<Subject> getSubjects() {
+    return subjects;
+  }
+
+  public void setSubjects(final Set<Subject> subjects) {
+    this.subjects = subjects;
+  }
+
+  @Override
+  public String toString() {
+    return "Staff ID : " + id;
+  }
 }

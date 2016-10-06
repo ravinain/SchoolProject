@@ -13,26 +13,26 @@ import org.school.model.Person;
 
 public class PersonTest {
 
-	private static Validator validator;
+  private static Validator validator;
 
-	@BeforeClass
-	public static void setup() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
-	
-	@Test
-	public void testInvalidData() {
-		Person person = new Person();
-		
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
-		
-		System.out.println(constraintViolations.size());
-		
-		for(ConstraintViolation<Person> constraintViolation:constraintViolations) {
-			System.out.println(constraintViolation.getMessage());
-		}
-		
-	}
-	
+  @BeforeClass
+  public static void setup() {
+    final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    validator = factory.getValidator();
+  }
+
+  @Test
+  public void testInvalidData() {
+    final Person person = new Person();
+
+    final Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
+
+    System.out.println(constraintViolations.size());
+
+    for (final ConstraintViolation<Person> constraintViolation : constraintViolations) {
+      System.out.println(constraintViolation.getMessage());
+    }
+
+  }
+
 }

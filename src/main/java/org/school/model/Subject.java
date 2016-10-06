@@ -22,95 +22,95 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class Subject implements Comparable<Subject>{
+public class Subject implements Comparable<Subject> {
 
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@NotEmpty
-	private String description;
+  @Id
+  @Column
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "subject_staff", joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
-	@JsonIgnore
-	private Set<Staff> staffs = new HashSet<Staff>();
+  @NotEmpty
+  private String description;
 
-	@ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
-	@Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
-	@JsonIgnore
-	private Set<Course> courses = new HashSet<Course>();
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "subject_staff", joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
+  @JsonIgnore
+  private Set<Staff> staffs = new HashSet<Staff>();
 
-	@ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
-	@Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
-	@JsonIgnore
-	private Set<Student> students = new HashSet<Student>();
+  @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
+  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @JsonIgnore
+  private Set<Course> courses = new HashSet<Course>();
 
-	public Set<Staff> getStaffs() {
-		return staffs;
-	}
+  @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
+  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @JsonIgnore
+  private Set<Student> students = new HashSet<Student>();
 
-	public void setStaffs(Set<Staff> staffs) {
-		this.staffs = staffs;
-	}
+  public Set<Staff> getStaffs() {
+    return staffs;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public void setStaffs(final Set<Staff> staffs) {
+    this.staffs = staffs;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public void setId(final int id) {
+    this.id = id;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
+  public void setDescription(final String description) {
+    this.description = description;
+  }
 
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
+  public Set<Course> getCourses() {
+    return courses;
+  }
 
-	public Set<Student> getStudents() {
-		return students;
-	}
+  public void setCourses(final Set<Course> courses) {
+    this.courses = courses;
+  }
 
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
+  public Set<Student> getStudents() {
+    return students;
+  }
 
-	@Override
-	public String toString() {
-		return "Subject : " + this.id;
-	}
+  public void setStudents(final Set<Student> students) {
+    this.students = students;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		if (this == obj) {
-			return true;
-		}
-		Subject subject = (Subject) obj;
+  @Override
+  public String toString() {
+    return "Subject : " + this.id;
+  }
 
-		return this.getId() == subject.getId();
-	}
-	
-	@Override
-	public int hashCode() {
-		return 22*7+this.id;
-	}
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    if (this == obj) {
+      return true;
+    }
+    final Subject subject = (Subject) obj;
 
-	public int compareTo(Subject o) {
-		return this.id-o.id;
-	}
+    return this.getId() == subject.getId();
+  }
+
+  @Override
+  public int hashCode() {
+    return 22 * 7 + this.id;
+  }
+
+  public int compareTo(final Subject o) {
+    return this.id - o.id;
+  }
 }

@@ -23,60 +23,61 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Course {
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-	@NotEmpty
-	private String description;
+  @NotEmpty
+  private String description;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "subject_course", joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
-	private Set<Subject> subjects = new HashSet<Subject>();
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "subject_course", joinColumns = {
+      @JoinColumn(name = "subject_id", referencedColumnName = "id") }, inverseJoinColumns = {
+          @JoinColumn(name = "course_id", referencedColumnName = "id") })
+  private Set<Subject> subjects = new HashSet<Subject>();
 
-	@OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-	@Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
-	@JsonIgnore
-	private Set<Student> students = new HashSet<Student>();
+  @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @JsonIgnore
+  private Set<Student> students = new HashSet<Student>();
 
-	public int getId() {
-		return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(final int id) {
+    this.id = id;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setDescription(final String description) {
+    this.description = description;
+  }
 
-	public Set<Subject> getSubjects() {
-		return subjects;
-	}
+  public Set<Subject> getSubjects() {
+    return subjects;
+  }
 
-	public void setSubjects(Set<Subject> subjects) {
-		this.subjects = subjects;
-	}
+  public void setSubjects(final Set<Subject> subjects) {
+    this.subjects = subjects;
+  }
 
-	public Set<Student> getStudents() {
-		return students;
-	}
+  public Set<Student> getStudents() {
+    return students;
+  }
 
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
+  public void setStudents(final Set<Student> students) {
+    this.students = students;
+  }
 
-	@Override
-	public String toString() {
-		return "Course : " + this.id;
-	}
+  @Override
+  public String toString() {
+    return "Course : " + this.id;
+  }
 }

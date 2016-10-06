@@ -14,25 +14,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/config/hibernate-config.xml", "/config/servlet-config.xml",
-		"/config/security-config.xml" })
+    "/config/security-config.xml" })
 public class CourseServiceTest {
-	
-	@Autowired
-	CourseService courseService;
-	
-	@Autowired
-	SubjectService subjectService;
-	
-	@Test
-	public void testAddCourse() {
-		Course course = new Course();
-		
-		course.setDescription("Test Course");
-		
-		Set<Subject> subjects = course.getSubjects();
-		subjects.add(subjectService.getSubject(1));
-		
-		courseService.addCourse(course, null);
-	}
+
+  @Autowired
+  CourseService courseService;
+
+  @Autowired
+  SubjectService subjectService;
+
+  @Test
+  public void testAddCourse() {
+    final Course course = new Course();
+
+    course.setDescription("Test Course");
+
+    final Set<Subject> subjects = course.getSubjects();
+    subjects.add(subjectService.getSubject(1));
+
+    courseService.addCourse(course, null);
+  }
 
 }

@@ -27,146 +27,182 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Controller of Course API.
- * 
+ *
  * @author cdacr
  */
 @Controller
 public class CourseController {
 
-	@Autowired
-	private CourseService courseService;
+  /** CourseService. */
+  @Autowired
+  private CourseService courseService;
 
-	@Autowired
-	private ApplicationContext context;
+  @Autowired
+  private ApplicationContext context;
 
-	@Autowired
-	MessageSource messageSource;
+  @Autowired
+  MessageSource messageSource;
 
-	/**
-	 * Request mapping to get all courses.
-	 * 
-	 * @return {@link ResponseEntity}
-	 */
-	@RequestMapping(value = "/courses", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<?> getAllCourses() {
-		List<Course> courses = courseService.getAllCourses();
-		if (courses.isEmpty()) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND, null, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
-	}
+  /**
+   * Request mapping to get all courses.
+   *
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/courses", method = RequestMethod.GET)
+  public @ResponseBody ResponseEntity<?> getAllCourses() {
+    final List<Course> courses = courseService.getAllCourses();
+    if (courses.isEmpty()) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND, null, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+  }
 
-	/**
-	 * Return course detail of input id.
-	 * 
-	 * @param id
-	 * @return {@link ResponseEntity}
-	 */
-	@RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("id") int id) {
-		Course course = courseService.getCourse(id);
-		if (course == null) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_ID,
-					new String[] { String.valueOf(id) }, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
-	}
+  /**
+   * Return course detail of input id.
+   *
+   * @param id.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
+  public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("id") final int id) {
+    final Course course = courseService.getCourse(id);
+    if (course == null) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final String[] args = new String[] { String.valueOf(id) };
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_ID, args, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Course>(course, HttpStatus.OK);
+  }
 
-	/**
-	 * Method returns course details based on input course description.
-	 * 
-	 * @param description
-	 * @return {@link ResponseEntity}
-	 */
-	@RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("description") String description) {
-		Course course = courseService.getCourse(description);
-		if (course == null) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_NAME,
-					new String[] { description }, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
-	}
+  /**
+   * Method returns course details based on input course description.
+   *
+   * @param description.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<?> getCourse(@PathVariable("description") final String description) {
+    final Course course = courseService.getCourse(description);
+    if (course == null) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final String[] args = new String[] { description };
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_NAME, args, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Course>(course, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}/subjects", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<?> getCourseSubjects(@PathVariable("id") int id) {
-		List<Subject> subjects = courseService.getCourseSubjects(id);
-		if (subjects.isEmpty()) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_COURSE,
-					new String[] { String.valueOf(id) }, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
-	}
+  /**
+   *
+   * @param id.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}/subjects", method = RequestMethod.GET)
+  public @ResponseBody ResponseEntity<?> getCourseSubjects(@PathVariable("id") final int id) {
+    final List<Subject> subjects = courseService.getCourseSubjects(id);
+    if (subjects.isEmpty()) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final String[] args = new String[] { String.valueOf(id) };
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_COURSE, args, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = "/course/add", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<?> addCourse(@Valid @RequestBody Course course, BindingResult result) {
-		MessageList messageList = courseService.addCourse(course, result);
-		if (!messageList.getMessages().isEmpty()) {
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
+  /**
+   *
+   * @param course.
+   * @param result.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/add", method = RequestMethod.POST)
+  public @ResponseBody ResponseEntity<?> addCourse(@Valid @RequestBody final Course course,
+      final BindingResult result) {
+    final MessageList messageList = courseService.addCourse(course, result);
+    if (!messageList.getMessages().isEmpty()) {
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<Void>(HttpStatus.CREATED);
+  }
 
-	@RequestMapping(value = "/course/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
-	public @ResponseBody ResponseEntity<?> updateCourse(@PathVariable("id") int id, @Valid @RequestBody Course course,
-			BindingResult result) {
-		MessageList messageList = courseService.updateCourse(id, course, result);
-		if (!messageList.getMessages().isEmpty()) {
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
-	}
+  /**
+   *
+   * @param id.
+   * @param course.
+   * @param result.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
+  public @ResponseBody ResponseEntity<?> updateCourse(@PathVariable("id") final int id,
+      @Valid @RequestBody final Course course, final BindingResult result) {
+    final MessageList messageList = courseService.updateCourse(id, course, result);
+    if (!messageList.getMessages().isEmpty()) {
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<Course>(course, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = "/course/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
-	public @ResponseBody ResponseEntity<Void> deleteCourse(@PathVariable("id") int id) {
-		boolean delFlag = courseService.deleteCourse(id);
-		if (!delFlag) {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
+  /**
+   *
+   * @param id.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/course/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
+  public @ResponseBody ResponseEntity<Void> deleteCourse(@PathVariable("id") final int id) {
+    final boolean delFlag = courseService.deleteCourse(id);
+    if (!delFlag) {
+      return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Void>(HttpStatus.OK);
+  }
 
-	@ExceptionHandler(RestException.class)
-	public ResponseEntity<?> handleException(RestException restException) {
-		restException.printStackTrace();
-		MessageList messageList = context.getBean(MessageList.class);
-		Message msg = context.getBean(Message.class);
-		msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-		msg.setMessage(restException.getErrorMsg());
-		messageList.addMessage(msg);
-		return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+  /**
+   *
+   * @param restException.
+   * @return {@link ResponseEntity}
+   */
+  @ExceptionHandler(RestException.class)
+  public ResponseEntity<?> handleException(final RestException restException) {
+    restException.printStackTrace();
+    final MessageList messageList = context.getBean(MessageList.class);
+    final Message msg = context.getBean(Message.class);
+    msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+    msg.setMessage(restException.getErrorMsg());
+    messageList.addMessage(msg);
+    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handleAllException(Exception exception) {
-		String errorMsg = exception.getMessage() == null ? "Exception occurred, see log for details."
-				: exception.getMessage();
-		exception.printStackTrace();
-		MessageList messageList = context.getBean(MessageList.class);
-		Message msg = context.getBean(Message.class);
-		msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-		msg.setMessage(errorMsg);
-		messageList.addMessage(msg);
-		return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+  /**
+   *
+   * @param exception.
+   * @return {@link ResponseEntity}
+   */
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<?> handleAllException(final Exception exception) {
+    String errorMsg = "Exception occurred, see log for details.";
+    errorMsg = exception.getMessage() == null ? errorMsg : exception.getMessage();
+    exception.printStackTrace();
+    final MessageList messageList = context.getBean(MessageList.class);
+    final Message msg = context.getBean(Message.class);
+    msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+    msg.setMessage(errorMsg);
+    messageList.addMessage(msg);
+    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }

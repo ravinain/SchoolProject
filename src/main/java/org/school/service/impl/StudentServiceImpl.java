@@ -2,7 +2,7 @@ package org.school.service.impl;
 
 import java.util.List;
 
-import org.school.dao.StudentDAO;
+import org.school.dao.StudentDao;
 import org.school.model.Student;
 import org.school.response.Message;
 import org.school.response.MessageList;
@@ -15,80 +15,81 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-@Service(value="studentService")
-@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+@Service(value = "studentService")
+@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public class StudentServiceImpl implements StudentService {
 
-	@Autowired
-	private MessageSource messageSource;
-	
-	@Autowired
-	private StudentDAO studentDao;
-	
-	public List<Student> getStudents() {
-		return studentDao.getStudents();
-	}
+  @Autowired
+  private MessageSource messageSource;
 
-	public Student getStudent(int id) {
-		return studentDao.getStudent(id);
-	}
+  @Autowired
+  private StudentDao studentDao;
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList addStudent(Student student, BindingResult result) {
-		MessageList messageList = new MessageList();
-		if(result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError:fieldErrors) {
-				Message message = new Message();
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
-				messageList.addMessage(message);
-			}
-		} else 	if(!isStudentExists(student.getId())) {
-			studentDao.addStudent(student);
-		} else {
-			Message message = new Message();
-			message.setField("student");
-			message.setMessage("Student already exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public List<Student> getStudents() {
+    return studentDao.getStudents();
+  }
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList updateStudent(int id, Student student, BindingResult result) {
-		MessageList messageList = new MessageList();
-		if(result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError:fieldErrors) {
-				Message message = new Message();
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
-				messageList.addMessage(message);
-			}
-		} else 	if(isStudentExists(student.getId())) {
-			studentDao.updateStudent(student);
-		} else {
-			Message message = new Message();
-			message.setField("student");
-			message.setMessage("Student does not exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public Student getStudent(final int id) {
+    return studentDao.getStudent(id);
+  }
 
-//	@Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-	public boolean deleteStudent(int id) {
-		boolean delFlag = false;
-		if(isStudentExists(id)) {
-			studentDao.deleteStudent(id);
-			delFlag = true;
-		}
-		return delFlag;
-	}
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList addStudent(final Student student, final BindingResult result) {
+    final MessageList messageList = new MessageList();
+    if (result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = new Message();
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        messageList.addMessage(message);
+      }
+    } else if (!isStudentExists(student.getId())) {
+      studentDao.addStudent(student);
+    } else {
+      final Message message = new Message();
+      message.setField("student");
+      message.setMessage("Student already exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
 
-	public boolean isStudentExists(int id) {
-		return studentDao.isStudentExists(id);
-	}
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList updateStudent(final int id, final Student student,
+      final BindingResult result) {
+    final MessageList messageList = new MessageList();
+    if (result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = new Message();
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        messageList.addMessage(message);
+      }
+    } else if (isStudentExists(student.getId())) {
+      studentDao.updateStudent(student);
+    } else {
+      final Message message = new Message();
+      message.setField("student");
+      message.setMessage("Student does not exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
+
+  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  public boolean deleteStudent(final int id) {
+    boolean delFlag = false;
+    if (isStudentExists(id)) {
+      studentDao.deleteStudent(id);
+      delFlag = true;
+    }
+    return delFlag;
+  }
+
+  public boolean isStudentExists(final int id) {
+    return studentDao.isStudentExists(id);
+  }
 
 }

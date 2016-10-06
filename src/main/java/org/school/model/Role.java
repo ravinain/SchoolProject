@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,44 +17,44 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table
 public class Role {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@NotEmpty
-	private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-	@ManyToOne
-	@JoinTable(name = "role_staff", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
-	@JsonIgnore
-	private Staff staff;
+  @NotEmpty
+  private String name;
 
-	public int getId() {
-		return id;
-	}
+  @ManyToOne
+  @JoinTable(name = "role_staff", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
+  @JsonIgnore
+  private Staff staff;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(final int id) {
+    this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public Staff getStaff() {
-		return staff;
-	}
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
+  public Staff getStaff() {
+    return staff;
+  }
 
-	@Override
-	public String toString() {
-		return "Role : " + id;
-	}
+  public void setStaff(final Staff staff) {
+    this.staff = staff;
+  }
+
+  @Override
+  public String toString() {
+    return "Role : " + id;
+  }
 }

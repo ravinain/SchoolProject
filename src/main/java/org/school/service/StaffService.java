@@ -8,14 +8,14 @@ import org.springframework.validation.BindingResult;
 
 public interface StaffService {
 
-	List<Staff> getStaffs();
+  List<Staff> getStaffs();
 
-	Staff getStaff(int id);
+  Staff getStaff(int id);
 
-	MessageList addStaff(Staff staff, BindingResult result);
+  MessageList addStaff(Staff staff, BindingResult result);
 
-	MessageList updateStaff(int id, Staff staff, BindingResult result);
+  MessageList updateStaff(int id, Staff staff, BindingResult result);
 
-	boolean deleteStaff(int id);
+  boolean deleteStaff(int id);
 
 }

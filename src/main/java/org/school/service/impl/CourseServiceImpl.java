@@ -2,7 +2,7 @@ package org.school.service.impl;
 
 import java.util.List;
 
-import org.school.dao.CourseDAO;
+import org.school.dao.CourseDao;
 import org.school.model.Course;
 import org.school.model.Subject;
 import org.school.response.Message;
@@ -17,91 +17,90 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-
-@Service(value="courseService")
-@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+@Service(value = "courseService")
+@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public class CourseServiceImpl implements CourseService {
 
-	@Autowired
-	MessageSource messageSource;
-	
-	@Autowired
-	CourseDAO courseDao;
-	
-	@Autowired
-	ApplicationContext context;
-	
-	public List<Course> getAllCourses() {
-		return courseDao.getAllCourse();
-	}
+  @Autowired
+  MessageSource messageSource;
 
-	public Course getCourse(int courseId) {
-		return courseDao.getCourse(courseId);
-	}
+  @Autowired
+  CourseDao courseDao;
 
-	public List<Subject> getCourseSubjects(int courseId) {
-		return null;
-	}
+  @Autowired
+  ApplicationContext context;
 
-	public boolean isCourseExists(String courseName) {
-		return courseDao.isCourseExists(courseName);
-	}
+  public List<Course> getAllCourses() {
+    return courseDao.getAllCourse();
+  }
 
-//	@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList addCourse(Course course, BindingResult result) {
-		MessageList messageList = context.getBean(MessageList.class);
-		if(result != null && result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError: fieldErrors) {
-				Message message = context.getBean(Message.class);
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
-				messageList.addMessage(message);
-			}
-		} else if(!isCourseExists(course.getDescription())) {
-			courseDao.saveCourse(course);
-		} else {
-			Message message = context.getBean(Message.class);
-			message.setField("course");
-			message.setMessage("Course already exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public Course getCourse(final int courseId) {
+    return courseDao.getCourse(courseId);
+  }
 
-//	@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
-	public MessageList updateCourse(int id, Course course, BindingResult result) {
-		MessageList messageList = context.getBean(MessageList.class);
-		if(result.hasErrors()) {
-			List<FieldError> fieldErrors = result.getFieldErrors();
-			for(FieldError fieldError: fieldErrors) {
-				Message message = context.getBean(Message.class);
-				message.setField(fieldError.getField());
-				message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
-				messageList.addMessage(message);
-			}
-		} else if(courseDao.isCourseExists(course.getId())) {
-			courseDao.updateCourse(course);
-		} else {
-			Message message = context.getBean(Message.class);
-			message.setField("course");
-			message.setMessage("Course does not exists!");
-			messageList.addMessage(message);
-		}
-		return messageList;
-	}
+  public List<Subject> getCourseSubjects(final int courseId) {
+    return null;
+  }
 
-//	@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
-	public boolean deleteCourse(int id) {
-		boolean delFlag = false;
-		if(courseDao.isCourseExists(id)) {
-			courseDao.deleteCourse(id);
-			delFlag = true;
-		}
-		return delFlag;
-	}
+  public boolean isCourseExists(final String courseName) {
+    return courseDao.isCourseExists(courseName);
+  }
 
-	public Course getCourse(String description) {
-		return courseDao.getCourse(description);
-	}
+  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList addCourse(final Course course, final BindingResult result) {
+    final MessageList messageList = context.getBean(MessageList.class);
+    if (result != null && result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = context.getBean(Message.class);
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
+        messageList.addMessage(message);
+      }
+    } else if (!isCourseExists(course.getDescription())) {
+      courseDao.saveCourse(course);
+    } else {
+      final Message message = context.getBean(Message.class);
+      message.setField("course");
+      message.setMessage("Course already exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
+
+  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  public MessageList updateCourse(final int id, final Course course, final BindingResult result) {
+    final MessageList messageList = context.getBean(MessageList.class);
+    if (result.hasErrors()) {
+      final List<FieldError> fieldErrors = result.getFieldErrors();
+      for (final FieldError fieldError : fieldErrors) {
+        final Message message = context.getBean(Message.class);
+        message.setField(fieldError.getField());
+        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
+        messageList.addMessage(message);
+      }
+    } else if (courseDao.isCourseExists(course.getId())) {
+      courseDao.updateCourse(course);
+    } else {
+      final Message message = context.getBean(Message.class);
+      message.setField("course");
+      message.setMessage("Course does not exists!");
+      messageList.addMessage(message);
+    }
+    return messageList;
+  }
+
+  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  public boolean deleteCourse(final int id) {
+    boolean delFlag = false;
+    if (courseDao.isCourseExists(id)) {
+      courseDao.deleteCourse(id);
+      delFlag = true;
+    }
+    return delFlag;
+  }
+
+  public Course getCourse(final String description) {
+    return courseDao.getCourse(description);
+  }
 }

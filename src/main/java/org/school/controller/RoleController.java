@@ -25,125 +25,177 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Role Controller. 
+ * Role Controller.
+ *
  * @author cdacr
  */
 @Controller
 public class RoleController {
 
-	@Autowired
-	RoleService roleService;
-	
-	@Autowired
-	private ApplicationContext context;
-	
-	@Autowired
-	MessageSource messageSource;
+  @Autowired
+  RoleService roleService;
 
-	@RequestMapping(value = "/roles", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getRoles() {
-		List<Role> roles = roleService.getRoles();
-		if (roles.isEmpty()) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND, null, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Role>>(roleService.getRoles(), HttpStatus.OK);
-	}
+  @Autowired
+  private ApplicationContext context;
 
-	@RequestMapping(value = "/role/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getRole(@PathVariable("id") int id) {
-		Role role = roleService.getRole(id);
-		if (role == null) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID, new String[]{String.valueOf(id)}, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Role>(role, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/role/{name}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getRole(@PathVariable("name") String name) {
-		Role role = roleService.getRole(name);
-		if (role == null) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_NAME, new String[]{name}, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Role>(role, HttpStatus.OK);
-	}
+  @Autowired
+  MessageSource messageSource;
 
-	@RequestMapping(value = "/role/add", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<?> addRole(@Valid @RequestBody Role role, BindingResult result) {
-		MessageList messageList = roleService.saveRole(role, result);
-		if (!messageList.getMessages().isEmpty()) {
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
+  /**
+   * Returns all roles.
+   *
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/roles", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<?> getRoles() {
+    final List<Role> roles = roleService.getRoles();
+    if (roles.isEmpty()) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND, null, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<List<Role>>(roleService.getRoles(), HttpStatus.OK);
+  }
 
-	@RequestMapping(value = "/role/update/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<?> updateRole(@PathVariable("id") int id, @Valid @RequestBody Role role, BindingResult result) {
-		MessageList messageList = roleService.updateRole(role, result);
-		if (!messageList.getMessages().isEmpty()) {
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
-		}
+  /**
+   * Returns role associated with input id.
+   *
+   * @param id.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/role/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<?> getRole(@PathVariable("id") final int id) {
+    final Role role = roleService.getRole(id);
+    if (role == null) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final String[] args = new String[] { String.valueOf(id) };
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID, args, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Role>(role, HttpStatus.OK);
+  }
 
-		return new ResponseEntity<Role>(role, HttpStatus.OK);
-	}
+  /**
+   * Fetch role information associated with role name.
+   *
+   * @param name.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/role/{name}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<?> getRole(@PathVariable("name") final String name) {
+    final Role role = roleService.getRole(name);
+    if (role == null) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final String[] args = new String[] { name };
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_NAME, args, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Role>(role, HttpStatus.OK);
+  }
 
-	@RequestMapping(value = "/role/delete/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<?> deleteRole(@PathVariable("id") int id) {
-		boolean delFlag = roleService.deleteRole(id);
-		if (!delFlag) {
-			MessageList messageList = context.getBean(MessageList.class);
-			Message msg = context.getBean(Message.class);
-			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID, new String[]{String.valueOf(id)}, null));
-			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
-		}
+  /**
+   * Add new role in database.
+   *
+   * @param role.
+   * @param result.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/role/add", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<?> addRole(@Valid @RequestBody final Role role, final BindingResult res) {
+    final MessageList messageList = roleService.saveRole(role, res);
+    if (!messageList.getMessages().isEmpty()) {
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<Void>(HttpStatus.CREATED);
+  }
 
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
+  /**
+   * Update role in DB.
+   *
+   * @param id.
+   * @param role.
+   * @param result.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/role/update/{id}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<?> updateRole(@PathVariable("id") final int id,
+      @Valid @RequestBody final Role role, final BindingResult result) {
+    final MessageList messageList = roleService.updateRole(role, result);
+    if (!messageList.getMessages().isEmpty()) {
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+    }
 
-	@ExceptionHandler(RestException.class)
-	public ResponseEntity<?> handleException(RestException restException) {
-		restException.printStackTrace();
-		MessageList messageList = context.getBean(MessageList.class);
-		Message msg = context.getBean(Message.class);
-		msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-		msg.setMessage(restException.getErrorMsg());
-		messageList.addMessage(msg);
-		return new ResponseEntity<MessageList>(messageList,
-				HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+    return new ResponseEntity<Role>(role, HttpStatus.OK);
+  }
 
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handleAllException(Exception exception) {
-		String errorMsg = exception.getMessage() == null ? "Exception occurred, see log for details."
-				: exception.getMessage();
-		exception.printStackTrace();
-		MessageList messageList = context.getBean(MessageList.class);
-		Message msg = context.getBean(Message.class);
-		msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-		msg.setMessage(errorMsg);
-		messageList.addMessage(msg);
-		return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+  /**
+   * Delete role in DB.
+   *
+   * @param id.
+   * @return {@link ResponseEntity}
+   */
+  @RequestMapping(value = "/role/delete/{id}", method = RequestMethod.DELETE)
+  @ResponseBody
+  public ResponseEntity<?> deleteRole(@PathVariable("id") final int id) {
+    final boolean delFlag = roleService.deleteRole(id);
+    if (!delFlag) {
+      final MessageList messageList = context.getBean(MessageList.class);
+      final Message msg = context.getBean(Message.class);
+      msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
+          new String[] { String.valueOf(id) }, null));
+      messageList.addMessage(msg);
+      return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
+    }
+
+    return new ResponseEntity<Void>(HttpStatus.OK);
+  }
+
+  /**
+   *
+   * @param restException.
+   * @return {@link ResponseEntity}
+   */
+  @ExceptionHandler(RestException.class)
+  public ResponseEntity<?> handleException(final RestException restException) {
+    restException.printStackTrace();
+    final MessageList messageList = context.getBean(MessageList.class);
+    final Message msg = context.getBean(Message.class);
+    msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+    msg.setMessage(restException.getErrorMsg());
+    messageList.addMessage(msg);
+    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  /**
+   *
+   * @param exception.
+   * @return {@link ResponseEntity}
+   */
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<?> handleAllException(final Exception exception) {
+    final String errorMsg = exception.getMessage() == null
+        ? "Exception occurred, see log for details." : exception.getMessage();
+    exception.printStackTrace();
+    final MessageList messageList = context.getBean(MessageList.class);
+    final Message msg = context.getBean(Message.class);
+    msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
+    msg.setMessage(errorMsg);
+    messageList.addMessage(msg);
+    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
