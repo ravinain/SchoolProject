@@ -41,7 +41,7 @@ public final class CourseController {
   private ApplicationContext context;
 
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * Request mapping to get all courses.
@@ -65,7 +65,8 @@ public final class CourseController {
   /**
    * Return course detail of input id.
    *
-   * @param id.
+   * @param id
+   *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
@@ -86,7 +87,8 @@ public final class CourseController {
   /**
    * Method returns course details based on input course description.
    *
-   * @param description.
+   * @param description
+   *          course description
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
@@ -106,8 +108,10 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param id.
+   * Fetch subjects of associated course id.
+   * 
+   * @param id
+   *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}/subjects", method = RequestMethod.GET)
@@ -126,9 +130,12 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param course.
-   * @param result.
+   * Add new course.
+   * 
+   * @param course
+   *          {@link Course}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/add", method = RequestMethod.POST)
@@ -142,10 +149,14 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param id.
-   * @param course.
-   * @param result.
+   * Update course.
+   * 
+   * @param id
+   *          course id
+   * @param course
+   *          {@link Course}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
@@ -159,8 +170,10 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param id.
+   * Delete course.
+   * 
+   * @param id
+   *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/course/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
@@ -173,8 +186,10 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param restException.
+   * REST Exception handler.
+   * 
+   * @param restException
+   *          {@link RestException}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(RestException.class)
@@ -189,8 +204,10 @@ public final class CourseController {
   }
 
   /**
-   *
-   * @param exception.
+   * Exception handler other than {@link RestException}.
+   * 
+   * @param exception
+   *          {@link Exception}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)
