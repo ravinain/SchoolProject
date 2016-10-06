@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Login Controller.
- *
  * @author cdacr
  */
 @Controller
 public final class LoginController {
 
   /**
-   *
-   * @param modelMap.
+   * Do login actions.
+   * @param modelMap
+   *          Model
    * @return {@link String}
    */
   @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -25,8 +25,9 @@ public final class LoginController {
   }
 
   /**
-   *
-   * @param modelMap.
+   * Forward to login when login failed.
+   * @param modelMap
+   *          Model
    * @return {@link String}
    */
   @RequestMapping(value = "/loginFailed", method = RequestMethod.GET)
@@ -38,8 +39,9 @@ public final class LoginController {
   }
 
   /**
-   *
-   * @param modelMap.
+   * Forward to logout.
+   * @param modelMap
+   *          Model
    * @return {@link String}
    */
   @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -48,8 +50,9 @@ public final class LoginController {
   }
 
   /**
-   *
-   * @param modelMap.
+   * Forward to 403 page.
+   * @param modelMap
+   *          Model
    * @return {@link String}
    */
   @RequestMapping(value = "/403", method = RequestMethod.GET)

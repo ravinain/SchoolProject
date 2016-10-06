@@ -32,18 +32,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public final class RoleController {
 
+  /** RoleService. */
   @Autowired
   RoleService roleService;
 
+  /** ApplicationContext. */
   @Autowired
   private ApplicationContext context;
 
+  /** MessageSource. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * Returns all roles.
-   *
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/roles", method = RequestMethod.GET)
@@ -65,8 +67,8 @@ public final class RoleController {
 
   /**
    * Returns role associated with input id.
-   *
-   * @param id.
+   * @param id
+   *          Role Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/role/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
@@ -88,8 +90,8 @@ public final class RoleController {
 
   /**
    * Fetch role information associated with role name.
-   *
-   * @param name.
+   * @param name
+   *          Role Name
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/role/{name}", method = RequestMethod.GET)
@@ -111,9 +113,10 @@ public final class RoleController {
 
   /**
    * Add new role in database.
-   *
-   * @param role.
-   * @param result.
+   * @param role
+   *          {@link Role}
+   * @param res
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/role/add", method = RequestMethod.POST)
@@ -130,10 +133,12 @@ public final class RoleController {
 
   /**
    * Update role in DB.
-   *
-   * @param id.
-   * @param role.
-   * @param result.
+   * @param id
+   *          Role Id
+   * @param role
+   *          {@link Role}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/role/update/{id}", method = RequestMethod.PUT)
@@ -151,8 +156,8 @@ public final class RoleController {
 
   /**
    * Delete role in DB.
-   *
-   * @param id.
+   * @param id
+   *          Role Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/role/delete/{id}", method = RequestMethod.DELETE)
@@ -174,8 +179,9 @@ public final class RoleController {
   }
 
   /**
-   *
-   * @param restException.
+   * Rest Exception Handler.
+   * @param restException
+   *          {@link RestException}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(RestException.class)
@@ -191,8 +197,9 @@ public final class RoleController {
   }
 
   /**
-   *
-   * @param exception.
+   * Exception Handler other than {@link RestException}.
+   * @param exception
+   *          {@link Exception}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)

@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Controller of Course API.
- *
  * @author cdacr
  */
 @Controller
@@ -68,19 +67,18 @@ public final class CourseController {
 
   /**
    * Return course detail of input id.
-   *
    * @param id
    *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = {
-      "/course/{id:[1-9]{1}[0-9]*}" }, method = RequestMethod.GET)
+      "/course/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<?> getCourse(@PathVariable("id") final int id) {
     final Course course = courseService.getCourse(id);
     if (course == null) {
       final MessageList messageList = context.getBean(MessageList.class);
-      final String[] args = new String[] { String.valueOf(id) };
+      final String[] args = new String[] {String.valueOf(id)};
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(messageSource
@@ -93,20 +91,18 @@ public final class CourseController {
 
   /**
    * Method returns course details based on input course description.
-   *
    * @param description
    *          course description
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {
-      "/course/{description}" }, method = RequestMethod.GET)
+  @RequestMapping(value = {"/course/{description}"}, method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<?> getCourse(
       @PathVariable("description") final String description) {
     final Course course = courseService.getCourse(description);
     if (course == null) {
       final MessageList messageList = context.getBean(MessageList.class);
-      final String[] args = new String[] { description };
+      final String[] args = new String[] {description};
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(messageSource
@@ -119,19 +115,18 @@ public final class CourseController {
 
   /**
    * Fetch subjects of associated course id.
-   * 
    * @param id
    *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = {
-      "/course/{id:[1-9]{1}[0-9]*}/subjects" }, method = RequestMethod.GET)
+      "/course/{id:[1-9]{1}[0-9]*}/subjects"}, method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<?> getCourseSubjects(@PathVariable("id") final int id) {
     final List<Subject> subjects = courseService.getCourseSubjects(id);
     if (subjects.isEmpty()) {
       final MessageList messageList = context.getBean(MessageList.class);
-      final String[] args = new String[] { String.valueOf(id) };
+      final String[] args = new String[] {String.valueOf(id)};
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(messageSource
@@ -144,7 +139,6 @@ public final class CourseController {
 
   /**
    * Add new course.
-   * 
    * @param course
    *          {@link Course}
    * @param result
@@ -165,7 +159,6 @@ public final class CourseController {
 
   /**
    * Update course.
-   * 
    * @param id
    *          course id
    * @param course
@@ -175,7 +168,7 @@ public final class CourseController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = {
-      "/course/update/{id:[1-9]{1}[0-9]*}" }, method = RequestMethod.PUT)
+      "/course/update/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.PUT)
   @ResponseBody
   public ResponseEntity<?> updateCourse(@PathVariable("id") final int id,
       @Valid @RequestBody final Course course, final BindingResult result) {
@@ -190,13 +183,12 @@ public final class CourseController {
 
   /**
    * Delete course.
-   * 
    * @param id
    *          course id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = {
-      "/course/delete/{id:[1-9]{1}[0-9]*}" }, method = RequestMethod.DELETE)
+      "/course/delete/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.DELETE)
   @ResponseBody
   public ResponseEntity<Void> deleteCourse(@PathVariable("id") final int id) {
     final boolean delFlag = courseService.deleteCourse(id);
@@ -208,7 +200,6 @@ public final class CourseController {
 
   /**
    * REST Exception handler.
-   * 
    * @param restException
    *          {@link RestException}
    * @return {@link ResponseEntity}
@@ -227,7 +218,6 @@ public final class CourseController {
 
   /**
    * Exception handler other than {@link RestException}.
-   * 
    * @param exception
    *          {@link Exception}
    * @return {@link ResponseEntity}

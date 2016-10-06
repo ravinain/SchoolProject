@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * Staff Controller.
+ * @author cdacr
+ */
 @Controller
 public final class StaffController {
 
@@ -41,7 +45,6 @@ public final class StaffController {
 
   /**
    * Fetch all staffs.
-   *
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staffs", method = RequestMethod.GET)
@@ -62,8 +65,9 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param id.
+   * Fetch Staff of input Staff Id.
+   * @param id
+   *          Staff Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/{id}", method = RequestMethod.GET)
@@ -85,9 +89,11 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param staff.
-   * @param result.
+   * Add new Staff.
+   * @param staff
+   *          {@link Staff}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/add", method = RequestMethod.POST)
@@ -103,10 +109,13 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param id.
-   * @param staff.
-   * @param result.
+   * Update Staff.
+   * @param id
+   *          Staff Id
+   * @param staff
+   *          {@link Staff}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/update/{id}", method = RequestMethod.PUT)
@@ -123,8 +132,9 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param id.
+   * Delete Staff.
+   * @param id
+   *          Staff Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/delete/{id}", method = RequestMethod.DELETE)
@@ -145,8 +155,9 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param restException.
+   * Rest Exception Handler.
+   * @param restException
+   *          {@link RestException}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(RestException.class)
@@ -162,8 +173,9 @@ public final class StaffController {
   }
 
   /**
-   *
-   * @param exception.
+   * Exception Handler other than {@link RestException}.
+   * @param exception
+   *          {@link Exception}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)

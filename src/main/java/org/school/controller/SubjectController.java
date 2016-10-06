@@ -24,25 +24,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * Subject Controller.
+ * @author cdacr
+ */
 @Controller
 public final class SubjectController {
 
+  /** Subject Service. */
   @Autowired
   SubjectService subjectService;
 
+  /** Application Context. */
   @Autowired
   private ApplicationContext context;
 
+  /** Message Source. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * Fetch all subjects.
-   *
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subjects", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getAllSubjects() {
+  @ResponseBody
+  public ResponseEntity<?> getAllSubjects() {
     final List<Subject> subjects = subjectService.getSubjects();
     if (subjects.isEmpty()) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -58,12 +65,14 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param id.
+   * Fetch Subject details of input Subject Id.
+   * @param id
+   *          Subject Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getSubject(
+  @ResponseBody
+  public ResponseEntity<?> getSubject(
       @PathVariable("id") final int id) {
     final Subject subject = subjectService.getSubject(id);
     if (subject == null) {
@@ -81,13 +90,16 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param subject.
-   * @param result.
+   * Add new Subject.
+   * @param subject
+   *          {@link Subject}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/add", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> addSubject(
+  @ResponseBody
+  public ResponseEntity<?> addSubject(
       @Valid @RequestBody final Subject subject, final BindingResult result) {
     final MessageList messageList = subjectService.saveSubject(subject, result);
     if (!messageList.getMessages().isEmpty()) {
@@ -98,14 +110,18 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param id.
-   * @param subject.
-   * @param result.
+   * Update Subject.
+   * @param id
+   *          Subject Id
+   * @param subject
+   *          {@link Subject}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<?> updateSubject(
+  @ResponseBody
+  public ResponseEntity<?> updateSubject(
       @PathVariable("id") final int id,
       @Valid @RequestBody final Subject subject, final BindingResult result) {
     final MessageList messageList = subjectService.updateSubject(subject,
@@ -119,12 +135,14 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param id.
+   * Delete Subject.
+   * @param id
+   *          Subject Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
-  public @ResponseBody ResponseEntity<?> deleteSubject(
+  @ResponseBody
+  public ResponseEntity<?> deleteSubject(
       @PathVariable("id") final int id) {
     final boolean delFlag = subjectService.deleteSubject(id);
     if (!delFlag) {
@@ -141,8 +159,9 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param restException.
+   * Rest Exception Handler.
+   * @param restException
+   *          {@link RestException}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(RestException.class)
@@ -158,8 +177,9 @@ public final class SubjectController {
   }
 
   /**
-   *
-   * @param exception.
+   * Exception Handler other than {@link RestException}.
+   * @param exception
+   *          {@link Exception}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)

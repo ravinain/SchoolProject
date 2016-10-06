@@ -24,25 +24,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * Student Controller.
+ * @author cdacr
+ */
 @Controller
 public final class StudentController {
 
+  /** Student Service. */
   @Autowired
   private StudentService studentService;
 
+  /** Application Context. */
   @Autowired
   private ApplicationContext context;
 
+  /** MessageSource. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * Fetch all students details.
-   *
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/students", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getStudents() {
+  @ResponseBody
+  public ResponseEntity<?> getStudents() {
     final List<Student> students = studentService.getStudents();
     if (students.isEmpty()) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -57,12 +64,14 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param id.
+   * Fetch Student details of input student id.
+   * @param id
+   *          Student Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getStudent(
+  @ResponseBody
+  public ResponseEntity<?> getStudent(
       @PathVariable("id") final int id) {
     final Student student = studentService.getStudent(id);
     if (student == null) {
@@ -79,13 +88,16 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param student.
-   * @param result.
+   * Add new student.
+   * @param student
+   *          {@link Student}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/add", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> addStudent(
+  @ResponseBody
+  public ResponseEntity<?> addStudent(
       @RequestBody @Valid final Student student, final BindingResult result) {
     final MessageList messageList = studentService.addStudent(student, result);
     if (messageList.getMessages().isEmpty()) {
@@ -95,14 +107,18 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param id.
-   * @param student.
-   * @param result.
+   * Update Student.
+   * @param id
+   *          Student Id
+   * @param student
+   *          {@link Student}
+   * @param result
+   *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<?> updateStudent(
+  @ResponseBody
+  public ResponseEntity<?> updateStudent(
       @PathVariable("id") final int id,
       @Valid @RequestBody final Student student, final BindingResult result) {
     final MessageList messageList = studentService.updateStudent(id, student,
@@ -114,12 +130,14 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param id.
+   * Delete Student.
+   * @param id
+   *          Student Id
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
-  public @ResponseBody ResponseEntity<?> deleteStudent(
+  @ResponseBody
+  public ResponseEntity<?> deleteStudent(
       @PathVariable("id") final int id) {
     if (!studentService.deleteStudent(id)) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -135,8 +153,9 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param restException.
+   * Rest Exception Handler.
+   * @param restException
+   *          {@link RestException}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(RestException.class)
@@ -152,8 +171,9 @@ public final class StudentController {
   }
 
   /**
-   *
-   * @param exception.
+   * Exception Handler other than {@link RestException}.
+   * @param exception
+   *          {@link Exception}
    * @return {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)
