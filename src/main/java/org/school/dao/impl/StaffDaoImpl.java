@@ -18,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @see StaffDao.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Repository(value = "staffRepo")
 public final class StaffDaoImpl implements StaffDao {
@@ -37,7 +36,7 @@ public final class StaffDaoImpl implements StaffDao {
   private SubjectDao subjectDao;
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public Staff addStaff(final Staff staff) {
     final Session session = sessionFactory.getCurrentSession();
@@ -55,7 +54,7 @@ public final class StaffDaoImpl implements StaffDao {
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public void deleteStaff(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -75,7 +74,7 @@ public final class StaffDaoImpl implements StaffDao {
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public Staff getStaff(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -83,7 +82,7 @@ public final class StaffDaoImpl implements StaffDao {
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public Staff getStaff(final String name) {
     final Session session = sessionFactory.getCurrentSession();
@@ -93,7 +92,7 @@ public final class StaffDaoImpl implements StaffDao {
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public List<Staff> getStaffs() {
     final Session session = sessionFactory.getCurrentSession();
@@ -102,21 +101,21 @@ public final class StaffDaoImpl implements StaffDao {
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public boolean isStaffExists(final int id) {
     return this.getStaff(id) != null;
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public boolean isStaffExists(final String name) {
     return getStaff(name) != null;
   }
 
   /**
-   * @see StaffDao.
+   * {@inheritDoc}.
    */
   public Staff updateStaff(Staff staff) {
     final Session session = sessionFactory.getCurrentSession();

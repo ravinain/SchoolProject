@@ -14,17 +14,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @see RoleDao.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Repository(value = "roleDao")
 public final class RoleDaoImpl implements RoleDao {
 
+  /** Session Factory. */
   @Autowired
   private SessionFactory sessionFactory;
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public Role saveRole(final Role role) {
     final Session session = sessionFactory.getCurrentSession();
@@ -33,7 +33,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   @Transactional
   public Role updateRole(final Role role) {
@@ -43,7 +43,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   @Transactional
   public void deleteRole(final int id) {
@@ -53,7 +53,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public List<Role> getRoles() {
     final Session session = sessionFactory.getCurrentSession();
@@ -62,7 +62,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public Role getRole(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -70,7 +70,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public boolean isRoleExists(final String name) {
     final Session session = sessionFactory.getCurrentSession();
@@ -80,7 +80,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public boolean isRoleExists(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -90,7 +90,7 @@ public final class RoleDaoImpl implements RoleDao {
   }
 
   /**
-   * @see RoleDao.
+   * {@inheritDoc}.
    */
   public Role getRole(final String name) {
     final Session session = sessionFactory.getCurrentSession();

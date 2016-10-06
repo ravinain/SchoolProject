@@ -15,18 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @see CourseDao.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Repository(value = "courseDao")
 public final class CourseDaoImpl implements CourseDao {
 
-  /** Session Factory */
+  /** Session Factory. */
   @Autowired
   private SessionFactory sessionFactory;
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public List<Course> getAllCourse() {
     final Session session = sessionFactory.getCurrentSession();
@@ -35,7 +34,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public Course getCourse(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -44,7 +43,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public Course getCourse(final String description) {
     final Session session = sessionFactory.getCurrentSession();
@@ -57,7 +56,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public Course saveCourse(final Course course) {
     final Session session = sessionFactory.getCurrentSession();
@@ -66,7 +65,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public Course updateCourse(final Course course) {
     final Session session = sessionFactory.getCurrentSession();
@@ -75,7 +74,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public void deleteCourse(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -96,7 +95,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public boolean isCourseExists(final int id) {
     final Course course = this.getCourse(id);
@@ -104,7 +103,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @see CourseDao.
+   * {@inheritDoc}.
    */
   public boolean isCourseExists(final String description) {
     final Session session = sessionFactory.getCurrentSession();

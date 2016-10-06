@@ -16,8 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * @see SubjectService.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Service(value = "subjectService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -32,28 +31,28 @@ public final class SubjectServiceImpl implements SubjectService {
   private MessageSource messageSource;
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public List<Subject> getSubjects() {
     return subjectDao.getAllSubjects();
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public Subject getSubject(final int id) {
     return subjectDao.getSubject(id);
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public Subject getSubject(final String name) {
     return subjectDao.getSubject(name);
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public MessageList saveSubject(final Subject subject,
       final BindingResult result) {
@@ -79,7 +78,7 @@ public final class SubjectServiceImpl implements SubjectService {
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public MessageList updateSubject(final Subject subject,
       final BindingResult result) {
@@ -106,7 +105,7 @@ public final class SubjectServiceImpl implements SubjectService {
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public boolean deleteSubject(final int id) {
     boolean delFlag = false;
@@ -118,14 +117,14 @@ public final class SubjectServiceImpl implements SubjectService {
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public boolean isSubjectExists(final int id) {
     return subjectDao.isSubjectExists(id);
   }
 
   /**
-   * @see SubjectService.
+   * {@inheritDoc}.
    */
   public boolean isSubjectExists(final String name) {
     return subjectDao.isSubjectExists(name);

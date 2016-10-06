@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @see SubjectDao.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Repository(value = "subjectDao")
 public final class SubjectDaoImpl implements SubjectDao {
@@ -24,7 +23,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   private SessionFactory sessionFactory;
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public List<Subject> getAllSubjects() {
     final Session session = sessionFactory.getCurrentSession();
@@ -35,7 +34,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public Subject getSubject(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -43,7 +42,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public Subject getSubject(final String name) {
     final Session session = sessionFactory.getCurrentSession();
@@ -53,7 +52,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public Subject saveSubject(final Subject subject) {
     final Session session = sessionFactory.getCurrentSession();
@@ -62,7 +61,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public Subject updateSubject(final Subject subject) {
     final Session session = sessionFactory.getCurrentSession();
@@ -71,7 +70,7 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public void deleteSubject(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -79,14 +78,14 @@ public final class SubjectDaoImpl implements SubjectDao {
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public boolean isSubjectExists(final int id) {
     return getSubject(id) != null;
   }
 
   /**
-   * @see SubjectDao.
+   * {@inheritDoc}.
    */
   public boolean isSubjectExists(final String name) {
     return getSubject(name) != null;

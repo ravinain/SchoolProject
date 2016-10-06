@@ -18,8 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * @see CourseService.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Service(value = "courseService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -38,35 +37,35 @@ public final class CourseServiceImpl implements CourseService {
   private ApplicationContext context;
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public List<Course> getAllCourses() {
     return courseDao.getAllCourse();
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public Course getCourse(final int courseId) {
     return courseDao.getCourse(courseId);
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public List<Subject> getCourseSubjects(final int courseId) {
     return null;
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public boolean isCourseExists(final String courseName) {
     return courseDao.isCourseExists(courseName);
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public MessageList addCourse(final Course course,
       final BindingResult result) {
@@ -92,7 +91,7 @@ public final class CourseServiceImpl implements CourseService {
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public MessageList updateCourse(final int id, final Course course,
       final BindingResult result) {
@@ -118,7 +117,7 @@ public final class CourseServiceImpl implements CourseService {
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public boolean deleteCourse(final int id) {
     boolean delFlag = false;
@@ -130,7 +129,7 @@ public final class CourseServiceImpl implements CourseService {
   }
 
   /**
-   * @see CourseService.
+   * {@inheritDoc}.
    */
   public Course getCourse(final String description) {
     return courseDao.getCourse(description);

@@ -15,8 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @see StudentDao.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Repository(value = "studentRepo")
 public final class StudentDaoImpl implements StudentDao {
@@ -26,7 +25,7 @@ public final class StudentDaoImpl implements StudentDao {
   private SessionFactory sessionFactory;
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public Student addStudent(final Student student) {
     final Session session = sessionFactory.getCurrentSession();
@@ -35,7 +34,7 @@ public final class StudentDaoImpl implements StudentDao {
   }
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public void deleteStudent(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -55,7 +54,7 @@ public final class StudentDaoImpl implements StudentDao {
   }
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public Student getStudent(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -63,7 +62,7 @@ public final class StudentDaoImpl implements StudentDao {
   }
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public boolean isStudentExists(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -73,7 +72,7 @@ public final class StudentDaoImpl implements StudentDao {
   }
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public Student updateStudent(final Student student) {
     final Session session = sessionFactory.getCurrentSession();
@@ -82,7 +81,7 @@ public final class StudentDaoImpl implements StudentDao {
   }
 
   /**
-   * @see StudentDao.
+   * {@inheritDoc}.
    */
   public List<Student> getStudents() {
     final Session session = sessionFactory.getCurrentSession();

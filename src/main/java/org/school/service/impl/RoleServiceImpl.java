@@ -16,8 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * @see RoleService.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Service(value = "roleService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -32,7 +31,7 @@ public final class RoleServiceImpl implements RoleService {
   private RoleDao roleDao;
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public MessageList saveRole(final Role role, final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -57,7 +56,7 @@ public final class RoleServiceImpl implements RoleService {
   }
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public MessageList updateRole(final Role role, final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -82,7 +81,7 @@ public final class RoleServiceImpl implements RoleService {
   }
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public boolean deleteRole(final int id) {
     boolean delFlag = false;
@@ -94,21 +93,21 @@ public final class RoleServiceImpl implements RoleService {
   }
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public List<Role> getRoles() {
     return roleDao.getRoles();
   }
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public Role getRole(final int id) {
     return roleDao.getRole(id);
   }
 
   /**
-   * @see RoleService.
+   * {@inheritDoc}.
    */
   public Role getRole(final String name) {
     return roleDao.getRole(name);

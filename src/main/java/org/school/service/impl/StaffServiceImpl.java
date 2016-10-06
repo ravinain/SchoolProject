@@ -16,8 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * @see StaffService.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Service(value = "staffService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -32,21 +31,21 @@ public final class StaffServiceImpl implements StaffService {
   private MessageSource messageSource;
 
   /**
-   * @see StaffService.
+   * {@inheritDoc}.
    */
   public List<Staff> getStaffs() {
     return staffDao.getStaffs();
   }
 
   /**
-   * @see StaffService.
+   * {@inheritDoc}.
    */
   public Staff getStaff(final int id) {
     return staffDao.getStaff(id);
   }
 
   /**
-   * @see StaffService.
+   * {@inheritDoc}.
    */
   public MessageList addStaff(final Staff staff, final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -71,7 +70,7 @@ public final class StaffServiceImpl implements StaffService {
   }
 
   /**
-   * @see StaffService.
+   * {@inheritDoc}.
    */
   public MessageList updateStaff(final int id, final Staff staff,
       final BindingResult result) {
@@ -97,7 +96,7 @@ public final class StaffServiceImpl implements StaffService {
   }
 
   /**
-   * @see StaffService.
+   * {@inheritDoc}.
    */
   public boolean deleteStaff(final int id) {
     boolean delFlag = false;

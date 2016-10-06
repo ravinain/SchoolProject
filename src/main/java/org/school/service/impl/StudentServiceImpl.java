@@ -16,8 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * @see StudentService.
- * @author cdacr
+ * {@inheritDoc}.
  */
 @Service(value = "studentService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -32,21 +31,21 @@ public final class StudentServiceImpl implements StudentService {
   private StudentDao studentDao;
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public List<Student> getStudents() {
     return studentDao.getStudents();
   }
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public Student getStudent(final int id) {
     return studentDao.getStudent(id);
   }
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public MessageList addStudent(final Student student,
       final BindingResult result) {
@@ -72,7 +71,7 @@ public final class StudentServiceImpl implements StudentService {
   }
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public MessageList updateStudent(final int id, final Student student,
       final BindingResult result) {
@@ -98,7 +97,7 @@ public final class StudentServiceImpl implements StudentService {
   }
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public boolean deleteStudent(final int id) {
     boolean delFlag = false;
@@ -110,7 +109,7 @@ public final class StudentServiceImpl implements StudentService {
   }
 
   /**
-   * @see StudentService.
+   * {@inheritDoc}.
    */
   public boolean isStudentExists(final int id) {
     return studentDao.isStudentExists(id);
