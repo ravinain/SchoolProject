@@ -34,16 +34,16 @@ public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
-	
+
 	@Autowired
 	private ApplicationContext context;
-	
+
 	@Autowired
 	MessageSource messageSource;
 
 	/**
 	 * Request mapping to get all courses.
-	 * @return {@link ResponseEntity} 
+	 * @return {@link ResponseEntity}
 	 */
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getAllCourses() {
@@ -61,7 +61,7 @@ public class CourseController {
 
 	/**
 	 * Return course detail of input id.
-	 * @param id 
+	 * @param id
 	 * @return {@link ResponseEntity}
 	 */
 	@RequestMapping(value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
@@ -71,18 +71,18 @@ public class CourseController {
 			MessageList messageList = context.getBean(MessageList.class);
 			Message msg = context.getBean(Message.class);
 			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_ID, new String[]{String.valueOf(id)}, null));
+			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_ID,
+					new String[] { String.valueOf(id) }, null));
 			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Method returns course details based on input course description.
-	 * @param description 
-	 * @return {@link ResponseEntity} 
+	 * @param description
+	 * @return {@link ResponseEntity}
 	 */
 	@RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getCourse(@PathVariable("description") String description) {
@@ -91,10 +91,10 @@ public class CourseController {
 			MessageList messageList = context.getBean(MessageList.class);
 			Message msg = context.getBean(Message.class);
 			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_NAME, new String[]{description}, null));
+			msg.setMessage(messageSource.getMessage(MessageConstant.NO_COURSE_FOUND_BY_NAME,
+					new String[] { description }, null));
 			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
@@ -106,10 +106,10 @@ public class CourseController {
 			MessageList messageList = context.getBean(MessageList.class);
 			Message msg = context.getBean(Message.class);
 			msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-			msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_COURSE, new String[]{String.valueOf(id)}, null));
+			msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_COURSE,
+					new String[] { String.valueOf(id) }, null));
 			messageList.addMessage(msg);
-			return new ResponseEntity<MessageList>(messageList,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
@@ -150,8 +150,7 @@ public class CourseController {
 		msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
 		msg.setMessage(restException.getErrorMsg());
 		messageList.addMessage(msg);
-		return new ResponseEntity<MessageList>(messageList,
-				HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(Exception.class)
