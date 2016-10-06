@@ -14,12 +14,20 @@ import org.school.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @see CourseDao.
+ * @author cdacr
+ */
 @Repository(value = "courseDao")
 public final class CourseDaoImpl implements CourseDao {
 
+  /** Session Factory */
   @Autowired
   private SessionFactory sessionFactory;
 
+  /**
+   * @see CourseDao.
+   */
   public List<Course> getAllCourse() {
     final Session session = sessionFactory.getCurrentSession();
     return new ArrayList<Course>(
@@ -27,8 +35,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @param id.
-   * @return {@link Course}
+   * @see CourseDao.
    */
   public Course getCourse(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -37,8 +44,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * @param description.
-   * @return {@link Course}
+   * @see CourseDao.
    */
   public Course getCourse(final String description) {
     final Session session = sessionFactory.getCurrentSession();
@@ -51,9 +57,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * 
-   * @param course.
-   * @return {@link Course}
+   * @see CourseDao.
    */
   public Course saveCourse(final Course course) {
     final Session session = sessionFactory.getCurrentSession();
@@ -62,9 +66,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * 
-   * @param course.
-   * @return {@link Course}
+   * @see CourseDao.
    */
   public Course updateCourse(final Course course) {
     final Session session = sessionFactory.getCurrentSession();
@@ -73,8 +75,7 @@ public final class CourseDaoImpl implements CourseDao {
   }
 
   /**
-   * 
-   * @param id.
+   * @see CourseDao.
    */
   public void deleteCourse(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -94,15 +95,16 @@ public final class CourseDaoImpl implements CourseDao {
     session.delete(course);
   }
 
+  /**
+   * @see CourseDao.
+   */
   public boolean isCourseExists(final int id) {
     final Course course = this.getCourse(id);
     return course != null;
   }
 
   /**
-   * 
-   * @param description.
-   * @return {@link Boolean}
+   * @see CourseDao.
    */
   public boolean isCourseExists(final String description) {
     final Session session = sessionFactory.getCurrentSession();

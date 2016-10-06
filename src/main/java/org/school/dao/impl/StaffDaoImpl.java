@@ -17,18 +17,28 @@ import org.school.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @see StaffDao.
+ * @author cdacr
+ */
 @Repository(value = "staffRepo")
 public final class StaffDaoImpl implements StaffDao {
 
+  /** Session Factory. */
   @Autowired
-  SessionFactory sessionFactory;
+  private SessionFactory sessionFactory;
 
+  /** Role DAO. */
   @Autowired
-  RoleDao roleDao;
+  private RoleDao roleDao;
 
+  /** Subject DAO. */
   @Autowired
-  SubjectDao subjectDao;
+  private SubjectDao subjectDao;
 
+  /**
+   * @see StaffDao.
+   */
   public Staff addStaff(final Staff staff) {
     final Session session = sessionFactory.getCurrentSession();
     session.save(staff);
@@ -44,6 +54,9 @@ public final class StaffDaoImpl implements StaffDao {
     return staff;
   }
 
+  /**
+   * @see StaffDao.
+   */
   public void deleteStaff(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     final Staff staff = (Staff) session.get(Staff.class, id);
@@ -61,11 +74,17 @@ public final class StaffDaoImpl implements StaffDao {
     session.delete(staff);
   }
 
+  /**
+   * @see StaffDao.
+   */
   public Staff getStaff(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     return (Staff) session.get(Staff.class, id);
   }
 
+  /**
+   * @see StaffDao.
+   */
   public Staff getStaff(final String name) {
     final Session session = sessionFactory.getCurrentSession();
     final List<Staff> staffs = session.createCriteria(Staff.class)
@@ -73,20 +92,32 @@ public final class StaffDaoImpl implements StaffDao {
     return staffs.isEmpty() ? null : staffs.get(0);
   }
 
+  /**
+   * @see StaffDao.
+   */
   public List<Staff> getStaffs() {
     final Session session = sessionFactory.getCurrentSession();
     return new ArrayList<Staff>(
         new LinkedHashSet<Staff>(session.createCriteria(Staff.class).list()));
   }
 
+  /**
+   * @see StaffDao.
+   */
   public boolean isStaffExists(final int id) {
     return this.getStaff(id) != null;
   }
 
+  /**
+   * @see StaffDao.
+   */
   public boolean isStaffExists(final String name) {
     return getStaff(name) != null;
   }
 
+  /**
+   * @see StaffDao.
+   */
   public Staff updateStaff(Staff staff) {
     final Session session = sessionFactory.getCurrentSession();
     staff = (Staff) session.merge(staff);

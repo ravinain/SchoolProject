@@ -13,18 +13,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @see RoleDao.
+ * @author cdacr
+ */
 @Repository(value = "roleDao")
 public final class RoleDaoImpl implements RoleDao {
 
   @Autowired
   private SessionFactory sessionFactory;
 
+  /**
+   * @see RoleDao.
+   */
   public Role saveRole(final Role role) {
     final Session session = sessionFactory.getCurrentSession();
     session.save(role);
     return role;
   }
 
+  /**
+   * @see RoleDao.
+   */
   @Transactional
   public Role updateRole(final Role role) {
     final Session session = sessionFactory.getCurrentSession();
@@ -32,6 +42,9 @@ public final class RoleDaoImpl implements RoleDao {
     return role;
   }
 
+  /**
+   * @see RoleDao.
+   */
   @Transactional
   public void deleteRole(final int id) {
     final Session session = sessionFactory.getCurrentSession();
@@ -39,17 +52,26 @@ public final class RoleDaoImpl implements RoleDao {
     session.delete(role);
   }
 
+  /**
+   * @see RoleDao.
+   */
   public List<Role> getRoles() {
     final Session session = sessionFactory.getCurrentSession();
     return new ArrayList<Role>(
         new LinkedHashSet<Role>(session.createCriteria(Role.class).list()));
   }
 
+  /**
+   * @see RoleDao.
+   */
   public Role getRole(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     return (Role) session.get(Role.class, id);
   }
 
+  /**
+   * @see RoleDao.
+   */
   public boolean isRoleExists(final String name) {
     final Session session = sessionFactory.getCurrentSession();
     final List<Role> roles = session.createCriteria(Role.class)
@@ -57,6 +79,9 @@ public final class RoleDaoImpl implements RoleDao {
     return !roles.isEmpty();
   }
 
+  /**
+   * @see RoleDao.
+   */
   public boolean isRoleExists(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     final List<Role> roles = session.createCriteria(Role.class)
@@ -64,6 +89,9 @@ public final class RoleDaoImpl implements RoleDao {
     return !roles.isEmpty();
   }
 
+  /**
+   * @see RoleDao.
+   */
   public Role getRole(final String name) {
     final Session session = sessionFactory.getCurrentSession();
     final List<Role> roles = session.createCriteria(Role.class)

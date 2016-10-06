@@ -15,25 +15,39 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+/**
+ * @see StudentService.
+ * @author cdacr
+ */
 @Service(value = "studentService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class StudentServiceImpl implements StudentService {
 
+  /** Message Source. */
   @Autowired
   private MessageSource messageSource;
 
+  /** Student DAO. */
   @Autowired
   private StudentDao studentDao;
 
+  /**
+   * @see StudentService.
+   */
   public List<Student> getStudents() {
     return studentDao.getStudents();
   }
 
+  /**
+   * @see StudentService.
+   */
   public Student getStudent(final int id) {
     return studentDao.getStudent(id);
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see StudentService.
+   */
   public MessageList addStudent(final Student student,
       final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -57,7 +71,9 @@ public final class StudentServiceImpl implements StudentService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see StudentService.
+   */
   public MessageList updateStudent(final int id, final Student student,
       final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -81,7 +97,9 @@ public final class StudentServiceImpl implements StudentService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see StudentService.
+   */
   public boolean deleteStudent(final int id) {
     boolean delFlag = false;
     if (isStudentExists(id)) {
@@ -91,6 +109,9 @@ public final class StudentServiceImpl implements StudentService {
     return delFlag;
   }
 
+  /**
+   * @see StudentService.
+   */
   public boolean isStudentExists(final int id) {
     return studentDao.isStudentExists(id);
   }

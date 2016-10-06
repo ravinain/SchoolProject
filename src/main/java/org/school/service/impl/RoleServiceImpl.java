@@ -15,17 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+/**
+ * @see RoleService.
+ * @author cdacr
+ */
 @Service(value = "roleService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class RoleServiceImpl implements RoleService {
 
+  /** Message Source. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
+  /** Role DAO. */
   @Autowired
-  RoleDao roleDao;
+  private RoleDao roleDao;
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see RoleService.
+   */
   public MessageList saveRole(final Role role, final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
@@ -48,7 +56,9 @@ public final class RoleServiceImpl implements RoleService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see RoleService.
+   */
   public MessageList updateRole(final Role role, final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
@@ -71,7 +81,9 @@ public final class RoleServiceImpl implements RoleService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see RoleService.
+   */
   public boolean deleteRole(final int id) {
     boolean delFlag = false;
     if (roleDao.isRoleExists(id)) {
@@ -81,14 +93,23 @@ public final class RoleServiceImpl implements RoleService {
     return delFlag;
   }
 
+  /**
+   * @see RoleService.
+   */
   public List<Role> getRoles() {
     return roleDao.getRoles();
   }
 
+  /**
+   * @see RoleService.
+   */
   public Role getRole(final int id) {
     return roleDao.getRole(id);
   }
 
+  /**
+   * @see RoleService.
+   */
   public Role getRole(final String name) {
     return roleDao.getRole(name);
   }

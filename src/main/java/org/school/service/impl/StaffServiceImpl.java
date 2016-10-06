@@ -15,24 +15,39 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+/**
+ * @see StaffService.
+ * @author cdacr
+ */
 @Service(value = "staffService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class StaffServiceImpl implements StaffService {
 
+  /** Staff Dao. */
   @Autowired
-  StaffDao staffDao;
+  private StaffDao staffDao;
 
+  /** Message Source. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
+  /**
+   * @see StaffService.
+   */
   public List<Staff> getStaffs() {
     return staffDao.getStaffs();
   }
 
+  /**
+   * @see StaffService.
+   */
   public Staff getStaff(final int id) {
     return staffDao.getStaff(id);
   }
 
+  /**
+   * @see StaffService.
+   */
   public MessageList addStaff(final Staff staff, final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result != null && result.hasErrors()) {
@@ -55,6 +70,9 @@ public final class StaffServiceImpl implements StaffService {
     return messageList;
   }
 
+  /**
+   * @see StaffService.
+   */
   public MessageList updateStaff(final int id, final Staff staff,
       final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -78,6 +96,9 @@ public final class StaffServiceImpl implements StaffService {
     return messageList;
   }
 
+  /**
+   * @see StaffService.
+   */
   public boolean deleteStaff(final int id) {
     boolean delFlag = false;
     if (staffDao.isStaffExists(id)) {

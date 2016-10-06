@@ -14,18 +14,29 @@ import org.school.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @see StudentDao.
+ * @author cdacr
+ */
 @Repository(value = "studentRepo")
 public final class StudentDaoImpl implements StudentDao {
 
+  /** Session Factory. */
   @Autowired
   private SessionFactory sessionFactory;
 
+  /**
+   * @see StudentDao.
+   */
   public Student addStudent(final Student student) {
     final Session session = sessionFactory.getCurrentSession();
     session.save(student);
     return student;
   }
 
+  /**
+   * @see StudentDao.
+   */
   public void deleteStudent(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     final Student student = (Student) session.get(Student.class, id);
@@ -43,11 +54,17 @@ public final class StudentDaoImpl implements StudentDao {
     session.delete(student);
   }
 
+  /**
+   * @see StudentDao.
+   */
   public Student getStudent(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     return (Student) session.get(Student.class, id);
   }
 
+  /**
+   * @see StudentDao.
+   */
   public boolean isStudentExists(final int id) {
     final Session session = sessionFactory.getCurrentSession();
     final List<Student> students = session.createCriteria(Student.class)
@@ -55,12 +72,18 @@ public final class StudentDaoImpl implements StudentDao {
     return !students.isEmpty();
   }
 
+  /**
+   * @see StudentDao.
+   */
   public Student updateStudent(final Student student) {
     final Session session = sessionFactory.getCurrentSession();
     session.merge(student);
     return student;
   }
 
+  /**
+   * @see StudentDao.
+   */
   public List<Student> getStudents() {
     final Session session = sessionFactory.getCurrentSession();
     final List<Student> students = new ArrayList<Student>();

@@ -17,36 +17,57 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+/**
+ * @see CourseService.
+ * @author cdacr
+ */
 @Service(value = "courseService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class CourseServiceImpl implements CourseService {
 
+  /** Message Source. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
+  /** Course DAO. */
   @Autowired
-  CourseDao courseDao;
+  private CourseDao courseDao;
 
+  /** Application Context. */
   @Autowired
-  ApplicationContext context;
+  private ApplicationContext context;
 
+  /**
+   * @see CourseService.
+   */
   public List<Course> getAllCourses() {
     return courseDao.getAllCourse();
   }
 
+  /**
+   * @see CourseService.
+   */
   public Course getCourse(final int courseId) {
     return courseDao.getCourse(courseId);
   }
 
+  /**
+   * @see CourseService.
+   */
   public List<Subject> getCourseSubjects(final int courseId) {
     return null;
   }
 
+  /**
+   * @see CourseService.
+   */
   public boolean isCourseExists(final String courseName) {
     return courseDao.isCourseExists(courseName);
   }
 
-  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see CourseService.
+   */
   public MessageList addCourse(final Course course,
       final BindingResult result) {
     final MessageList messageList = context.getBean(MessageList.class);
@@ -70,7 +91,9 @@ public final class CourseServiceImpl implements CourseService {
     return messageList;
   }
 
-  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see CourseService.
+   */
   public MessageList updateCourse(final int id, final Course course,
       final BindingResult result) {
     final MessageList messageList = context.getBean(MessageList.class);
@@ -94,7 +117,9 @@ public final class CourseServiceImpl implements CourseService {
     return messageList;
   }
 
-  // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see CourseService.
+   */
   public boolean deleteCourse(final int id) {
     boolean delFlag = false;
     if (courseDao.isCourseExists(id)) {
@@ -104,6 +129,9 @@ public final class CourseServiceImpl implements CourseService {
     return delFlag;
   }
 
+  /**
+   * @see CourseService.
+   */
   public Course getCourse(final String description) {
     return courseDao.getCourse(description);
   }

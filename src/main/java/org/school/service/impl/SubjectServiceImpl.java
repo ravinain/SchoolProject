@@ -15,29 +15,46 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+/**
+ * @see SubjectService.
+ * @author cdacr
+ */
 @Service(value = "subjectService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class SubjectServiceImpl implements SubjectService {
 
+  /** Subject DAO. */
   @Autowired
-  SubjectDao subjectDao;
+  private SubjectDao subjectDao;
 
+  /** Message Source. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
+  /**
+   * @see SubjectService.
+   */
   public List<Subject> getSubjects() {
     return subjectDao.getAllSubjects();
   }
 
+  /**
+   * @see SubjectService.
+   */
   public Subject getSubject(final int id) {
     return subjectDao.getSubject(id);
   }
 
+  /**
+   * @see SubjectService.
+   */
   public Subject getSubject(final String name) {
     return subjectDao.getSubject(name);
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see SubjectService.
+   */
   public MessageList saveSubject(final Subject subject,
       final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -61,7 +78,9 @@ public final class SubjectServiceImpl implements SubjectService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see SubjectService.
+   */
   public MessageList updateSubject(final Subject subject,
       final BindingResult result) {
     final MessageList messageList = new MessageList();
@@ -86,7 +105,9 @@ public final class SubjectServiceImpl implements SubjectService {
     return messageList;
   }
 
-  // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
+  /**
+   * @see SubjectService.
+   */
   public boolean deleteSubject(final int id) {
     boolean delFlag = false;
     if (isSubjectExists(id)) {
@@ -96,10 +117,16 @@ public final class SubjectServiceImpl implements SubjectService {
     return delFlag;
   }
 
+  /**
+   * @see SubjectService.
+   */
   public boolean isSubjectExists(final int id) {
     return subjectDao.isSubjectExists(id);
   }
 
+  /**
+   * @see SubjectService.
+   */
   public boolean isSubjectExists(final String name) {
     return subjectDao.isSubjectExists(name);
   }
