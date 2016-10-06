@@ -88,7 +88,10 @@ public final class StaffDaoImpl implements StaffDao {
     final Session session = sessionFactory.getCurrentSession();
     final List<Staff> staffs = session.createCriteria(Staff.class)
         .add(Restrictions.eq("name", name)).list();
-    return staffs.isEmpty() ? null : staffs.get(0);
+    if (staffs.isEmpty()) {
+      return null;
+    }
+    return staffs.get(0);
   }
 
   /**

@@ -96,7 +96,10 @@ public final class RoleDaoImpl implements RoleDao {
     final Session session = sessionFactory.getCurrentSession();
     final List<Role> roles = session.createCriteria(Role.class)
         .add(Restrictions.eq("name", name)).list();
-    return roles.isEmpty() ? null : roles.get(0);
+    if (roles.isEmpty()) {
+      return null;
+    }
+    return roles.get(0);
   }
 
 }

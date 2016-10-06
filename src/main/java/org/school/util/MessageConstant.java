@@ -16,9 +16,11 @@ public final class MessageConstant {
   /** No course found by id. */
   public static final String NO_COURSE_FOUND_BY_ID = "course.get.id.notfound";
   /** No course found by name. */
-  public static final String NO_COURSE_FOUND_BY_NAME = "course.get.name.notfound";
+  public static final String NO_COURSE_FOUND_BY_NAME =
+      "course.get.name.notfound";
   /** No subject found course. */
-  public static final String NO_SUBJECT_FOUND_COURSE = "course.subject.get.notfound";
+  public static final String NO_SUBJECT_FOUND_COURSE =
+      "course.subject.get.notfound";
   /** No Role found. */
   public static final String NO_ROLE_FOUND = "role.get.notfound";
   /** No Role found by id. */
@@ -38,5 +40,6 @@ public final class MessageConstant {
   /** No subject found by id. */
   public static final String NO_SUBJECT_FOUND_BY_ID = "subject.get.id.notfound";
   /** No subject found by name. */
-  public static final String NO_SUBJECT_FOUND_BY_NAME = "subject.get.name.notfound";
+  public static final String NO_SUBJECT_FOUND_BY_NAME =
+      "subject.get.name.notfound";
 }

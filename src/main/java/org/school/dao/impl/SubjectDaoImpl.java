@@ -48,7 +48,10 @@ public final class SubjectDaoImpl implements SubjectDao {
     final Session session = sessionFactory.getCurrentSession();
     final List<Subject> subjects = session.createCriteria(Subject.class)
         .add(Restrictions.eq("description", name)).list();
-    return subjects.isEmpty() ? null : subjects.get(0);
+    if (subjects.isEmpty()) {
+      return null;
+    }
+    return subjects.get(0);
   }
 
   /**
