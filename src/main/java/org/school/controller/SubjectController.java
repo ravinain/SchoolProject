@@ -33,7 +33,7 @@ public final class SubjectController {
 
   /** Subject Service. */
   @Autowired
-  SubjectService subjectService;
+  private SubjectService subjectService;
 
   /** Application Context. */
   @Autowired
@@ -70,10 +70,11 @@ public final class SubjectController {
    *          Subject Id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/subject/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
+  @RequestMapping(
+      value = "/subject/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET
+  )
   @ResponseBody
-  public ResponseEntity<?> getSubject(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> getSubject(@PathVariable("id") final int id) {
     final Subject subject = subjectService.getSubject(id);
     if (subject == null) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -81,7 +82,7 @@ public final class SubjectController {
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 
@@ -99,8 +100,8 @@ public final class SubjectController {
    */
   @RequestMapping(value = "/subject/add", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<?> addSubject(
-      @Valid @RequestBody final Subject subject, final BindingResult result) {
+  public ResponseEntity<?> addSubject(@Valid @RequestBody final Subject subject,
+      final BindingResult result) {
     final MessageList messageList = subjectService.saveSubject(subject, result);
     if (!messageList.getMessages().isEmpty()) {
       return new ResponseEntity<MessageList>(messageList,
@@ -119,10 +120,11 @@ public final class SubjectController {
    *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/subject/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
+  @RequestMapping(
+      value = "/subject/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT
+  )
   @ResponseBody
-  public ResponseEntity<?> updateSubject(
-      @PathVariable("id") final int id,
+  public ResponseEntity<?> updateSubject(@PathVariable("id") final int id,
       @Valid @RequestBody final Subject subject, final BindingResult result) {
     final MessageList messageList = subjectService.updateSubject(subject,
         result);
@@ -140,10 +142,12 @@ public final class SubjectController {
    *          Subject Id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/subject/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
+  @RequestMapping(
+      value = "/subject/delete/{id:[1-9]{1}[0-9]*}",
+      method = RequestMethod.DELETE
+  )
   @ResponseBody
-  public ResponseEntity<?> deleteSubject(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> deleteSubject(@PathVariable("id") final int id) {
     final boolean delFlag = subjectService.deleteSubject(id);
     if (!delFlag) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -151,7 +155,7 @@ public final class SubjectController {
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }

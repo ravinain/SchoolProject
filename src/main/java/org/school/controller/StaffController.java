@@ -33,7 +33,7 @@ public final class StaffController {
 
   /** StaffService. */
   @Autowired
-  StaffService staffService;
+  private StaffService staffService;
 
   /** ApplicationContext. */
   @Autowired
@@ -72,8 +72,7 @@ public final class StaffController {
    */
   @RequestMapping(value = "/staff/{id}", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<?> getStaff(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> getStaff(@PathVariable("id") final int id) {
     final Staff staff = staffService.getStaff(id);
     if (staff == null) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -81,7 +80,7 @@ public final class StaffController {
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -98,8 +97,8 @@ public final class StaffController {
    */
   @RequestMapping(value = "/staff/add", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<?> addStaff(
-      @RequestBody @Valid final Staff staff, final BindingResult result) {
+  public ResponseEntity<?> addStaff(@RequestBody @Valid final Staff staff,
+      final BindingResult result) {
     final MessageList messageList = staffService.addStaff(staff, result);
     if (!messageList.getMessages().isEmpty()) {
       return new ResponseEntity<MessageList>(messageList,
@@ -120,9 +119,8 @@ public final class StaffController {
    */
   @RequestMapping(value = "/staff/update/{id}", method = RequestMethod.PUT)
   @ResponseBody
-  public ResponseEntity<?> updateStaff(
-      @PathVariable("id") final int id, @Valid @RequestBody final Staff staff,
-      final BindingResult result) {
+  public ResponseEntity<?> updateStaff(@PathVariable("id") final int id,
+      @Valid @RequestBody final Staff staff, final BindingResult result) {
     final MessageList messageList = staffService.updateStaff(id, staff, result);
     if (!messageList.getMessages().isEmpty()) {
       return new ResponseEntity<MessageList>(messageList,
@@ -139,15 +137,14 @@ public final class StaffController {
    */
   @RequestMapping(value = "/staff/delete/{id}", method = RequestMethod.DELETE)
   @ResponseBody
-  public ResponseEntity<?> deleteStaff(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> deleteStaff(@PathVariable("id") final int id) {
     if (!staffService.deleteStaff(id)) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }

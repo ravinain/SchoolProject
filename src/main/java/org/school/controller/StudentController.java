@@ -69,10 +69,11 @@ public final class StudentController {
    *          Student Id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/student/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
+  @RequestMapping(
+      value = "/student/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET
+  )
   @ResponseBody
-  public ResponseEntity<?> getStudent(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> getStudent(@PathVariable("id") final int id) {
     final Student student = studentService.getStudent(id);
     if (student == null) {
       final MessageList messageList = context.getBean(MessageList.class);
@@ -80,7 +81,7 @@ public final class StudentController {
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_STUDENT_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -97,8 +98,8 @@ public final class StudentController {
    */
   @RequestMapping(value = "/student/add", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<?> addStudent(
-      @RequestBody @Valid final Student student, final BindingResult result) {
+  public ResponseEntity<?> addStudent(@RequestBody @Valid final Student student,
+      final BindingResult result) {
     final MessageList messageList = studentService.addStudent(student, result);
     if (messageList.getMessages().isEmpty()) {
       return new ResponseEntity<Student>(student, HttpStatus.CREATED);
@@ -116,10 +117,11 @@ public final class StudentController {
    *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/student/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
+  @RequestMapping(
+      value = "/student/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT
+  )
   @ResponseBody
-  public ResponseEntity<?> updateStudent(
-      @PathVariable("id") final int id,
+  public ResponseEntity<?> updateStudent(@PathVariable("id") final int id,
       @Valid @RequestBody final Student student, final BindingResult result) {
     final MessageList messageList = studentService.updateStudent(id, student,
         result);
@@ -135,17 +137,19 @@ public final class StudentController {
    *          Student Id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/student/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
+  @RequestMapping(
+      value = "/student/delete/{id:[1-9]{1}[0-9]*}",
+      method = RequestMethod.DELETE
+  )
   @ResponseBody
-  public ResponseEntity<?> deleteStudent(
-      @PathVariable("id") final int id) {
+  public ResponseEntity<?> deleteStudent(@PathVariable("id") final int id) {
     if (!studentService.deleteStudent(id)) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }

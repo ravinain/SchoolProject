@@ -71,13 +71,15 @@ public final class RoleController {
    *          Role Id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = "/role/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
+  @RequestMapping(
+      value = "/role/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET
+  )
   @ResponseBody
   public ResponseEntity<?> getRole(@PathVariable("id") final int id) {
     final Role role = roleService.getRole(id);
     if (role == null) {
       final MessageList messageList = context.getBean(MessageList.class);
-      final String[] args = new String[] { String.valueOf(id) };
+      final String[] args = new String[] {String.valueOf(id)};
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(messageSource
@@ -100,7 +102,7 @@ public final class RoleController {
     final Role role = roleService.getRole(name);
     if (role == null) {
       final MessageList messageList = context.getBean(MessageList.class);
-      final String[] args = new String[] { name };
+      final String[] args = new String[] {name};
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(messageSource
@@ -170,7 +172,7 @@ public final class RoleController {
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
       msg.setMessage(
           messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
-              new String[] { String.valueOf(id) }, null));
+              new String[] {String.valueOf(id)}, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }

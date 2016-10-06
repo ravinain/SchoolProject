@@ -71,8 +71,9 @@ public final class CourseController {
    *          course id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {
-      "/course/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = "/course/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET
+  )
   @ResponseBody
   public ResponseEntity<?> getCourse(@PathVariable("id") final int id) {
     final Course course = courseService.getCourse(id);
@@ -95,7 +96,7 @@ public final class CourseController {
    *          course description
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {"/course/{description}"}, method = RequestMethod.GET)
+  @RequestMapping(value = "/course/{description}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<?> getCourse(
       @PathVariable("description") final String description) {
@@ -119,8 +120,9 @@ public final class CourseController {
    *          course id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {
-      "/course/{id:[1-9]{1}[0-9]*}/subjects"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = "/course/{id:[1-9]{1}[0-9]*}/subjects", method = RequestMethod.GET
+  )
   @ResponseBody
   public ResponseEntity<?> getCourseSubjects(@PathVariable("id") final int id) {
     final List<Subject> subjects = courseService.getCourseSubjects(id);
@@ -167,8 +169,9 @@ public final class CourseController {
    *          {@link BindingResult}
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {
-      "/course/update/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.PUT)
+  @RequestMapping(
+      value = {"/course/update/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.PUT
+  )
   @ResponseBody
   public ResponseEntity<?> updateCourse(@PathVariable("id") final int id,
       @Valid @RequestBody final Course course, final BindingResult result) {
@@ -187,8 +190,10 @@ public final class CourseController {
    *          course id
    * @return {@link ResponseEntity}
    */
-  @RequestMapping(value = {
-      "/course/delete/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.DELETE)
+  @RequestMapping(
+      value = {"/course/delete/{id:[1-9]{1}[0-9]*}"},
+      method = RequestMethod.DELETE
+  )
   @ResponseBody
   public ResponseEntity<Void> deleteCourse(@PathVariable("id") final int id) {
     final boolean delFlag = courseService.deleteCourse(id);
