@@ -7,9 +7,9 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-		<b:bean id="dataSource"
+	<b:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost:3306/school-repo"
 		p:username="user" p:password="password" />
-	
+
 </b:beans>
