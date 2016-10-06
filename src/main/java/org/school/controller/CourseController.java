@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Controller of Course API.
+ * 
  * @author cdacr
  */
 @Controller
@@ -43,6 +44,7 @@ public class CourseController {
 
 	/**
 	 * Request mapping to get all courses.
+	 * 
 	 * @return {@link ResponseEntity}
 	 */
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
@@ -61,6 +63,7 @@ public class CourseController {
 
 	/**
 	 * Return course detail of input id.
+	 * 
 	 * @param id
 	 * @return {@link ResponseEntity}
 	 */
@@ -81,6 +84,7 @@ public class CourseController {
 
 	/**
 	 * Method returns course details based on input course description.
+	 * 
 	 * @param description
 	 * @return {@link ResponseEntity}
 	 */
