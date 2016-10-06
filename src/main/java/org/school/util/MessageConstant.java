@@ -1,6 +1,6 @@
 package org.school.util;
 
-public class MessageConstant {
+public final class MessageConstant {
   private MessageConstant() {
   }
 

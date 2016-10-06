@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value = "prototype")
-public class MessageList {
+public final class MessageList {
 
   private final List<Message> messages = new ArrayList<Message>();
 

@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table
-public class Staff extends Person {
+public final class Staff extends Person {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

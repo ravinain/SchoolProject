@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author cdacr
  */
 @Controller
-public class LoginController {
+public final class LoginController {
 
   /**
    *

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository(value = "roleDao")
-public class RoleDaoImpl implements RoleDao {
+public final class RoleDaoImpl implements RoleDao {
 
   @Autowired
   private SessionFactory sessionFactory;

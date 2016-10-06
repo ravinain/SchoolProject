@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "subjectDao")
-public class SubjectDaoImpl implements SubjectDao {
+public final class SubjectDaoImpl implements SubjectDao {
 
   @Autowired
   SessionFactory sessionFactory;

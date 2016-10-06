@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author cdacr
  */
 @Controller
-public class CourseController {
+public final class CourseController {
 
   /** CourseService. */
   @Autowired

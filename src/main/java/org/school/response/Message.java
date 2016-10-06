@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
-public class Message {
+public final class Message {
   private String field;
   private String message;
 

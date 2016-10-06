@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class Subject implements Comparable<Subject> {
+public final class Subject implements Comparable<Subject> {
 
   @Id
   @Column
@@ -33,7 +33,9 @@ public class Subject implements Comparable<Subject> {
   private String description;
 
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "subject_staff", joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
+  @JoinTable(name = "subject_staff", joinColumns = {
+      @JoinColumn(name = "subject_id", referencedColumnName = "id") }, inverseJoinColumns = {
+          @JoinColumn(name = "staff_id", referencedColumnName = "id") })
   @JsonIgnore
   private Set<Staff> staffs = new HashSet<Staff>();
 

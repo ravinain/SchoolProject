@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class Course {
+public final class Course {
 
   @Id
   @Column(name = "id")

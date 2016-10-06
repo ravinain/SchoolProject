@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author cdacr
  */
 @Controller
-public class RoleController {
+public final class RoleController {
 
   @Autowired
   RoleService roleService;

@@ -17,7 +17,7 @@ import org.springframework.validation.FieldError;
 
 @Service(value = "roleService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-public class RoleServiceImpl implements RoleService {
+public final class RoleServiceImpl implements RoleService {
 
   @Autowired
   MessageSource messageSource;

@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "staffRepo")
-public class StaffDaoImpl implements StaffDao {
+public final class StaffDaoImpl implements StaffDao {
 
   @Autowired
   SessionFactory sessionFactory;

@@ -17,7 +17,7 @@ import org.springframework.validation.FieldError;
 
 @Service(value = "staffService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-public class StaffServiceImpl implements StaffService {
+public final class StaffServiceImpl implements StaffService {
 
   @Autowired
   StaffDao staffDao;

@@ -17,7 +17,7 @@ import org.springframework.validation.FieldError;
 
 @Service(value = "studentService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-public class StudentServiceImpl implements StudentService {
+public final class StudentServiceImpl implements StudentService {
 
   @Autowired
   private MessageSource messageSource;

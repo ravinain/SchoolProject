@@ -17,7 +17,7 @@ import org.springframework.validation.FieldError;
 
 @Service(value = "subjectService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-public class SubjectServiceImpl implements SubjectService {
+public final class SubjectServiceImpl implements SubjectService {
 
   @Autowired
   SubjectDao subjectDao;

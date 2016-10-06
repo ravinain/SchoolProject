@@ -1,6 +1,6 @@
 package org.school.exception;
 
-public class RestException extends RuntimeException {
+public final class RestException extends RuntimeException {
 
   private static final long serialVersionUID = -2422631025483051091L;
 

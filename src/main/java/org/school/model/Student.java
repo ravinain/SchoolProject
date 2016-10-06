@@ -18,9 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-// property = "id")
-public class Student extends Person {
+public final class Student extends Person {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,11 +27,15 @@ public class Student extends Person {
   @NotNull
   @Valid
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+  @JoinTable(name = "student_course", joinColumns = {
+      @JoinColumn(name = "student_id", referencedColumnName = "id") }, inverseJoinColumns = {
+          @JoinColumn(name = "course_id", referencedColumnName = "id") })
   private Course course;
 
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "student_subject", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"))
+  @JoinTable(name = "student_subject", joinColumns = {
+      @JoinColumn(name = "student_id", referencedColumnName = "id") }, inverseJoinColumns = {
+          @JoinColumn(name = "subject_id", referencedColumnName = "id") })
   private Set<Subject> subjects = new HashSet<Subject>();
 
   public Course getCourse() {
