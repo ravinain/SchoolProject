@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Controller of Course API.
  * @author cdacr
- * 
  */
 @Controller
 public class CourseController {
