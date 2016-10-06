@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 
- * @author cdacr
  * Controller of Course API.
+ * @author cdacr
+ * 
  */
 @Controller
 public class CourseController {
