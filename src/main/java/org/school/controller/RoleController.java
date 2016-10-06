@@ -54,11 +54,13 @@ public final class RoleController {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND, null, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_ROLE_FOUND, null, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
-    return new ResponseEntity<List<Role>>(roleService.getRoles(), HttpStatus.OK);
+    return new ResponseEntity<List<Role>>(roleService.getRoles(),
+        HttpStatus.OK);
   }
 
   /**
@@ -76,7 +78,8 @@ public final class RoleController {
       final String[] args = new String[] { String.valueOf(id) };
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID, args, null));
+      msg.setMessage(messageSource
+          .getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID, args, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -98,7 +101,8 @@ public final class RoleController {
       final String[] args = new String[] { name };
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_NAME, args, null));
+      msg.setMessage(messageSource
+          .getMessage(MessageConstant.NO_ROLE_FOUND_BY_NAME, args, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -114,10 +118,12 @@ public final class RoleController {
    */
   @RequestMapping(value = "/role/add", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<?> addRole(@Valid @RequestBody final Role role, final BindingResult res) {
+  public ResponseEntity<?> addRole(@Valid @RequestBody final Role role,
+      final BindingResult res) {
     final MessageList messageList = roleService.saveRole(role, res);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Void>(HttpStatus.CREATED);
   }
@@ -136,7 +142,8 @@ public final class RoleController {
       @Valid @RequestBody final Role role, final BindingResult result) {
     final MessageList messageList = roleService.updateRole(role, result);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
 
     return new ResponseEntity<Role>(role, HttpStatus.OK);
@@ -156,8 +163,9 @@ public final class RoleController {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -178,7 +186,8 @@ public final class RoleController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(restException.getErrorMsg());
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   /**
@@ -197,6 +206,7 @@ public final class RoleController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(errorMsg);
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

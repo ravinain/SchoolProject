@@ -21,7 +21,8 @@ public final class SubjectDaoImpl implements SubjectDao {
   public List<Subject> getAllSubjects() {
     final Session session = sessionFactory.getCurrentSession();
     final List<Subject> subList = new ArrayList<Subject>();
-    subList.addAll(new LinkedHashSet(session.createCriteria(Subject.class).list()));
+    subList.addAll(
+        new LinkedHashSet(session.createCriteria(Subject.class).list()));
     return subList;
   }
 

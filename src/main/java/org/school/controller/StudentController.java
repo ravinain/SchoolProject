@@ -48,7 +48,8 @@ public final class StudentController {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STUDENT_FOUND, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STUDENT_FOUND,
+          null, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -61,14 +62,16 @@ public final class StudentController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getStudent(@PathVariable("id") final int id) {
+  public @ResponseBody ResponseEntity<?> getStudent(
+      @PathVariable("id") final int id) {
     final Student student = studentService.getStudent(id);
     if (student == null) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STUDENT_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_STUDENT_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -82,8 +85,8 @@ public final class StudentController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/add", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> addStudent(@RequestBody @Valid final Student student,
-      final BindingResult result) {
+  public @ResponseBody ResponseEntity<?> addStudent(
+      @RequestBody @Valid final Student student, final BindingResult result) {
     final MessageList messageList = studentService.addStudent(student, result);
     if (messageList.getMessages().isEmpty()) {
       return new ResponseEntity<Student>(student, HttpStatus.CREATED);
@@ -99,9 +102,11 @@ public final class StudentController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<?> updateStudent(@PathVariable("id") final int id,
+  public @ResponseBody ResponseEntity<?> updateStudent(
+      @PathVariable("id") final int id,
       @Valid @RequestBody final Student student, final BindingResult result) {
-    final MessageList messageList = studentService.updateStudent(id, student, result);
+    final MessageList messageList = studentService.updateStudent(id, student,
+        result);
     if (messageList.getMessages().isEmpty()) {
       return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
@@ -114,13 +119,15 @@ public final class StudentController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/student/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
-  public @ResponseBody ResponseEntity<?> deleteStudent(@PathVariable("id") final int id) {
+  public @ResponseBody ResponseEntity<?> deleteStudent(
+      @PathVariable("id") final int id) {
     if (!studentService.deleteStudent(id)) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_ROLE_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -140,7 +147,8 @@ public final class StudentController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(restException.getErrorMsg());
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   /**
@@ -159,6 +167,7 @@ public final class StudentController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(errorMsg);
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

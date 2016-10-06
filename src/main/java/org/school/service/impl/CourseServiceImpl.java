@@ -47,14 +47,16 @@ public final class CourseServiceImpl implements CourseService {
   }
 
   // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
-  public MessageList addCourse(final Course course, final BindingResult result) {
+  public MessageList addCourse(final Course course,
+      final BindingResult result) {
     final MessageList messageList = context.getBean(MessageList.class);
     if (result != null && result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
         messageList.addMessage(message);
       }
     } else if (!isCourseExists(course.getDescription())) {
@@ -69,14 +71,16 @@ public final class CourseServiceImpl implements CourseService {
   }
 
   // @Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
-  public MessageList updateCourse(final int id, final Course course, final BindingResult result) {
+  public MessageList updateCourse(final int id, final Course course,
+      final BindingResult result) {
     final MessageList messageList = context.getBean(MessageList.class);
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, "", null));
         messageList.addMessage(message);
       }
     } else if (courseDao.isCourseExists(course.getId())) {

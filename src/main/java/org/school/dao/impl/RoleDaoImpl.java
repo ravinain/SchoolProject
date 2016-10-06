@@ -41,7 +41,8 @@ public final class RoleDaoImpl implements RoleDao {
 
   public List<Role> getRoles() {
     final Session session = sessionFactory.getCurrentSession();
-    return new ArrayList<Role>(new LinkedHashSet<Role>(session.createCriteria(Role.class).list()));
+    return new ArrayList<Role>(
+        new LinkedHashSet<Role>(session.createCriteria(Role.class).list()));
   }
 
   public Role getRole(final int id) {
@@ -51,22 +52,22 @@ public final class RoleDaoImpl implements RoleDao {
 
   public boolean isRoleExists(final String name) {
     final Session session = sessionFactory.getCurrentSession();
-    final List<Role> roles = session.createCriteria(Role.class).add(Restrictions.eq("name", name))
-        .list();
+    final List<Role> roles = session.createCriteria(Role.class)
+        .add(Restrictions.eq("name", name)).list();
     return !roles.isEmpty();
   }
 
   public boolean isRoleExists(final int id) {
     final Session session = sessionFactory.getCurrentSession();
-    final List<Role> roles = session.createCriteria(Role.class).add(Restrictions.eq("id", id))
-        .list();
+    final List<Role> roles = session.createCriteria(Role.class)
+        .add(Restrictions.eq("id", id)).list();
     return !roles.isEmpty();
   }
 
   public Role getRole(final String name) {
     final Session session = sessionFactory.getCurrentSession();
-    final List<Role> roles = session.createCriteria(Role.class).add(Restrictions.eq("name", name))
-        .list();
+    final List<Role> roles = session.createCriteria(Role.class)
+        .add(Restrictions.eq("name", name)).list();
     return roles.isEmpty() ? null : roles.get(0);
   }
 

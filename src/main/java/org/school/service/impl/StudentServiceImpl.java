@@ -34,14 +34,16 @@ public final class StudentServiceImpl implements StudentService {
   }
 
   // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-  public MessageList addStudent(final Student student, final BindingResult result) {
+  public MessageList addStudent(final Student student,
+      final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (!isStudentExists(student.getId())) {
@@ -64,7 +66,8 @@ public final class StudentServiceImpl implements StudentService {
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (isStudentExists(student.getId())) {

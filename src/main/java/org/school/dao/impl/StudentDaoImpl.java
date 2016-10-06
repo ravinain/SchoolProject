@@ -64,7 +64,8 @@ public final class StudentDaoImpl implements StudentDao {
   public List<Student> getStudents() {
     final Session session = sessionFactory.getCurrentSession();
     final List<Student> students = new ArrayList<Student>();
-    students.addAll(new LinkedHashSet<Student>(session.createCriteria(Student.class).list()));
+    students.addAll(new LinkedHashSet<Student>(
+        session.createCriteria(Student.class).list()));
     return students;
   }
 

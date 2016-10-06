@@ -38,14 +38,16 @@ public final class SubjectServiceImpl implements SubjectService {
   }
 
   // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-  public MessageList saveSubject(final Subject subject, final BindingResult result) {
+  public MessageList saveSubject(final Subject subject,
+      final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (!isSubjectExists(subject.getDescription())) {
@@ -60,14 +62,16 @@ public final class SubjectServiceImpl implements SubjectService {
   }
 
   // @Transactional(readOnly = false, propagation=Propagation.REQUIRES_NEW)
-  public MessageList updateSubject(final Subject subject, final BindingResult result) {
+  public MessageList updateSubject(final Subject subject,
+      final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (isSubjectExists(subject.getId())) {
@@ -75,7 +79,8 @@ public final class SubjectServiceImpl implements SubjectService {
     } else {
       final Message message = new Message();
       message.setField("subject");
-      message.setMessage("Subject ID : " + subject.getId() + ", does not exists!");
+      message
+          .setMessage("Subject ID : " + subject.getId() + ", does not exists!");
       messageList.addMessage(message);
     }
     return messageList;

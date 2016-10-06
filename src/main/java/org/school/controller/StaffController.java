@@ -27,14 +27,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public final class StaffController {
 
+  /** StaffService. */
   @Autowired
   StaffService staffService;
 
+  /** ApplicationContext. */
   @Autowired
   private ApplicationContext context;
 
+  /** MessageSource. */
   @Autowired
-  MessageSource messageSource;
+  private MessageSource messageSource;
 
   /**
    * Fetch all staffs.
@@ -42,13 +45,15 @@ public final class StaffController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staffs", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getStaffs() {
+  @ResponseBody
+  public ResponseEntity<?> getStaffs() {
     final List<Staff> staffs = staffService.getStaffs();
     if (staffs.isEmpty()) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STAFF_FOUND, null, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_STAFF_FOUND, null, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 
@@ -62,14 +67,17 @@ public final class StaffController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/{id}", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getStaff(@PathVariable("id") final int id) {
+  @ResponseBody
+  public ResponseEntity<?> getStaff(
+      @PathVariable("id") final int id) {
     final Staff staff = staffService.getStaff(id);
     if (staff == null) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -83,11 +91,13 @@ public final class StaffController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/add", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> addStaff(@RequestBody @Valid final Staff staff,
-      final BindingResult result) {
+  @ResponseBody
+  public ResponseEntity<?> addStaff(
+      @RequestBody @Valid final Staff staff, final BindingResult result) {
     final MessageList messageList = staffService.addStaff(staff, result);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Void>(HttpStatus.CREATED);
   }
@@ -100,11 +110,14 @@ public final class StaffController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/update/{id}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<?> updateStaff(@PathVariable("id") final int id,
-      @Valid @RequestBody final Staff staff, final BindingResult result) {
+  @ResponseBody
+  public ResponseEntity<?> updateStaff(
+      @PathVariable("id") final int id, @Valid @RequestBody final Staff staff,
+      final BindingResult result) {
     final MessageList messageList = staffService.updateStaff(id, staff, result);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Staff>(staff, HttpStatus.OK);
   }
@@ -115,13 +128,16 @@ public final class StaffController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/staff/delete/{id}", method = RequestMethod.DELETE)
-  public @ResponseBody ResponseEntity<?> deleteStaff(@PathVariable("id") final int id) {
+  @ResponseBody
+  public ResponseEntity<?> deleteStaff(
+      @PathVariable("id") final int id) {
     if (!staffService.deleteStaff(id)) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_STAFF_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -141,7 +157,8 @@ public final class StaffController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(restException.getErrorMsg());
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   /**
@@ -160,6 +177,7 @@ public final class StaffController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(errorMsg);
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

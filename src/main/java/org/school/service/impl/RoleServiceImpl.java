@@ -33,7 +33,8 @@ public final class RoleServiceImpl implements RoleService {
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (!roleDao.isRoleExists(role.getName())) {
@@ -55,7 +56,8 @@ public final class RoleServiceImpl implements RoleService {
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (roleDao.isRoleExists(role.getId())) {

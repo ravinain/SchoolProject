@@ -40,7 +40,8 @@ public final class StaffServiceImpl implements StaffService {
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (!staffDao.isStaffExists(staff.getName())) {
@@ -54,14 +55,16 @@ public final class StaffServiceImpl implements StaffService {
     return messageList;
   }
 
-  public MessageList updateStaff(final int id, final Staff staff, final BindingResult result) {
+  public MessageList updateStaff(final int id, final Staff staff,
+      final BindingResult result) {
     final MessageList messageList = new MessageList();
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
         final Message message = new Message();
         message.setField(fieldError.getField());
-        message.setMessage(messageSource.getMessage(fieldError.getCodes()[0], null, null));
+        message.setMessage(
+            messageSource.getMessage(fieldError.getCodes()[0], null, null));
         messageList.addMessage(message);
       }
     } else if (staffDao.isStaffExists(id)) {

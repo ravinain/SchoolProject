@@ -22,7 +22,8 @@ public final class CourseDaoImpl implements CourseDao {
 
   public List<Course> getAllCourse() {
     final Session session = sessionFactory.getCurrentSession();
-    return new ArrayList<Course>(new HashSet<Course>(session.createCriteria(Course.class).list()));
+    return new ArrayList<Course>(
+        new HashSet<Course>(session.createCriteria(Course.class).list()));
   }
 
   /**

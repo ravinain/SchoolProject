@@ -48,7 +48,8 @@ public final class SubjectController {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND, null, null));
+      msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND,
+          null, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 
@@ -62,14 +63,16 @@ public final class SubjectController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/{id:[1-9]{1}[0-9]*}", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<?> getSubject(@PathVariable("id") final int id) {
+  public @ResponseBody ResponseEntity<?> getSubject(
+      @PathVariable("id") final int id) {
     final Subject subject = subjectService.getSubject(id);
     if (subject == null) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
 
@@ -84,11 +87,12 @@ public final class SubjectController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/add", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> addSubject(@Valid @RequestBody final Subject subject,
-      final BindingResult result) {
+  public @ResponseBody ResponseEntity<?> addSubject(
+      @Valid @RequestBody final Subject subject, final BindingResult result) {
     final MessageList messageList = subjectService.saveSubject(subject, result);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Void>(HttpStatus.CREATED);
   }
@@ -101,11 +105,14 @@ public final class SubjectController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<?> updateSubject(@PathVariable("id") final int id,
+  public @ResponseBody ResponseEntity<?> updateSubject(
+      @PathVariable("id") final int id,
       @Valid @RequestBody final Subject subject, final BindingResult result) {
-    final MessageList messageList = subjectService.updateSubject(subject, result);
+    final MessageList messageList = subjectService.updateSubject(subject,
+        result);
     if (!messageList.getMessages().isEmpty()) {
-      return new ResponseEntity<MessageList>(messageList, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<MessageList>(messageList,
+          HttpStatus.BAD_REQUEST);
     }
 
     return new ResponseEntity<Subject>(subject, HttpStatus.OK);
@@ -117,14 +124,16 @@ public final class SubjectController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/subject/delete/{id:[1-9]{1}[0-9]*}", method = RequestMethod.DELETE)
-  public @ResponseBody ResponseEntity<?> deleteSubject(@PathVariable("id") final int id) {
+  public @ResponseBody ResponseEntity<?> deleteSubject(
+      @PathVariable("id") final int id) {
     final boolean delFlag = subjectService.deleteSubject(id);
     if (!delFlag) {
       final MessageList messageList = context.getBean(MessageList.class);
       final Message msg = context.getBean(Message.class);
       msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
-      msg.setMessage(messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
-          new String[] { String.valueOf(id) }, null));
+      msg.setMessage(
+          messageSource.getMessage(MessageConstant.NO_SUBJECT_FOUND_BY_ID,
+              new String[] { String.valueOf(id) }, null));
       messageList.addMessage(msg);
       return new ResponseEntity<MessageList>(messageList, HttpStatus.NOT_FOUND);
     }
@@ -144,7 +153,8 @@ public final class SubjectController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(restException.getErrorMsg());
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   /**
@@ -163,6 +173,7 @@ public final class SubjectController {
     msg.setField(messageSource.getMessage(MessageConstant.ERROR, null, null));
     msg.setMessage(errorMsg);
     messageList.addMessage(msg);
-    return new ResponseEntity<MessageList>(messageList, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<MessageList>(messageList,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
