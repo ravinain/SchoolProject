@@ -8,9 +8,9 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.school.dao.RoleDAO;
-import org.school.dao.StaffDAO;
-import org.school.dao.SubjectDAO;
+import org.school.dao.RoleDao;
+import org.school.dao.StaffDao;
+import org.school.dao.SubjectDao;
 import org.school.model.Role;
 import org.school.model.Staff;
 import org.school.model.Subject;
@@ -18,87 +18,89 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "staffRepo")
-public class StaffDAOImpl implements StaffDAO {
+public class StaffDaoImpl implements StaffDao {
 
-	@Autowired
-	SessionFactory sessionFactory;
+  @Autowired
+  SessionFactory sessionFactory;
 
-	@Autowired
-	RoleDAO roleDao;
+  @Autowired
+  RoleDao roleDao;
 
-	@Autowired
-	SubjectDAO subjectDao;
+  @Autowired
+  SubjectDao subjectDao;
 
-	public Staff addStaff(Staff staff) {
-		Session session = sessionFactory.getCurrentSession();
-		session.save(staff);
-		for (Role role : staff.getRoles()) {
-			Role role1 = roleDao.getRole(role.getId());
-			role1.setStaff(staff);
-		}
-		for (Subject subject : staff.getSubjects()) {
-			Subject subject1 = subjectDao.getSubject(subject.getId());
-			subject1.getStaffs().add(staff);
-		}
-		session.merge(staff);
-		return staff;
-	}
+  public Staff addStaff(final Staff staff) {
+    final Session session = sessionFactory.getCurrentSession();
+    session.save(staff);
+    for (final Role role : staff.getRoles()) {
+      final Role role1 = roleDao.getRole(role.getId());
+      role1.setStaff(staff);
+    }
+    for (final Subject subject : staff.getSubjects()) {
+      final Subject subject1 = subjectDao.getSubject(subject.getId());
+      subject1.getStaffs().add(staff);
+    }
+    session.merge(staff);
+    return staff;
+  }
 
-	public void deleteStaff(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Staff staff = (Staff) session.get(Staff.class, id);
+  public void deleteStaff(final int id) {
+    final Session session = sessionFactory.getCurrentSession();
+    final Staff staff = (Staff) session.get(Staff.class, id);
 
-		Set<Subject> subjects = staff.getSubjects();
-		for (Subject subject : subjects) {
-			subject.getStaffs().clear();
-		}
-		
-		Set<Role> roles = staff.getRoles();
-		for(Role role: roles) {
-			role.setStaff(null);
-		}
-		session.merge(staff);
-		session.delete(staff);
-	}
+    final Set<Subject> subjects = staff.getSubjects();
+    for (final Subject subject : subjects) {
+      subject.getStaffs().clear();
+    }
 
-	public Staff getStaff(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		return (Staff) session.get(Staff.class, id);
-	}
+    final Set<Role> roles = staff.getRoles();
+    for (final Role role : roles) {
+      role.setStaff(null);
+    }
+    session.merge(staff);
+    session.delete(staff);
+  }
 
-	public Staff getStaff(String name) {
-		Session session = sessionFactory.getCurrentSession();
-		List<Staff> staffs = session.createCriteria(Staff.class).add(Restrictions.eq("name", name)).list();
-		return staffs.isEmpty() ? null : staffs.get(0);
-	}
+  public Staff getStaff(final int id) {
+    final Session session = sessionFactory.getCurrentSession();
+    return (Staff) session.get(Staff.class, id);
+  }
 
-	public List<Staff> getStaffs() {
-		Session session = sessionFactory.getCurrentSession();
-		return new ArrayList<Staff>(new LinkedHashSet<Staff>(session.createCriteria(Staff.class).list()));
-	}
+  public Staff getStaff(final String name) {
+    final Session session = sessionFactory.getCurrentSession();
+    final List<Staff> staffs = session.createCriteria(Staff.class)
+        .add(Restrictions.eq("name", name)).list();
+    return staffs.isEmpty() ? null : staffs.get(0);
+  }
 
-	public boolean isStaffExists(int id) {
-		return this.getStaff(id) != null;
-	}
+  public List<Staff> getStaffs() {
+    final Session session = sessionFactory.getCurrentSession();
+    return new ArrayList<Staff>(
+        new LinkedHashSet<Staff>(session.createCriteria(Staff.class).list()));
+  }
 
-	public boolean isStaffExists(String name) {
-		return getStaff(name) != null;
-	}
+  public boolean isStaffExists(final int id) {
+    return this.getStaff(id) != null;
+  }
 
-	public Staff updateStaff(Staff staff) {
-		Session session = sessionFactory.getCurrentSession();
-		staff = (Staff) session.merge(staff);
-		for (Role role : staff.getRoles()) {
-			Role role1 = roleDao.getRole(role.getId());
-			role1.setStaff(staff);
-			session.merge(role1);
-		}
-		for (Subject subject : staff.getSubjects()) {
-			Subject subject1 = subjectDao.getSubject(subject.getId());
-			subject1.getStaffs().add(staff);
-			session.merge(subject1);
-		}
-		return staff;
-	}
+  public boolean isStaffExists(final String name) {
+    return getStaff(name) != null;
+  }
+
+  public Staff updateStaff(Staff staff) {
+    final Session session = sessionFactory.getCurrentSession();
+    staff = (Staff) session.merge(staff);
+    for (final Role role : staff.getRoles()) {
+      final Role role1 = roleDao.getRole(role.getId());
+      role1.setStaff(staff);
+      session.merge(role1);
+    }
+    for (final Subject subject : staff.getSubjects()) {
+      final Subject subject1 = subjectDao.getSubject(subject.getId());
+      subject1.getStaffs().add(staff);
+      session.merge(subject1);
+    }
+    return staff;
+  }
 
 }

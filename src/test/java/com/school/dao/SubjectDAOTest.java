@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.school.dao.SubjectDAO;
+import org.school.dao.SubjectDao;
 import org.school.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,49 +15,48 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/config/hibernate-config.xml", "/config/servlet-config.xml",
-		"/config/security-config.xml" })
-@TransactionConfiguration(transactionManager="txManager")
-public class SubjectDAOTest {
+    "/config/security-config.xml" })
+@TransactionConfiguration(transactionManager = "txManager")
+public class SubjectDaoTest {
 
-	@Autowired
-	SubjectDAO subjectDao;
-	
-	@Test
-	@Transactional
-	public void testGetAllSubjects() {
-		List<Subject> subjects = subjectDao.getAllSubjects();
-		System.out.println(subjects);
-		List<Integer> a = new ArrayList<Integer>();
-		a.add(1);
-		
-		Ball b = new Ball();
-		System.out.println(b.getName());
-	}
-	
+  @Autowired
+  SubjectDao subjectDao;
+
+  @Test
+  @Transactional
+  public void testGetAllSubjects() {
+    final List<Subject> subjects = subjectDao.getAllSubjects();
+    System.out.println(subjects);
+    final List<Integer> a = new ArrayList<Integer>();
+    a.add(1);
+
+    final Ball b = new Ball();
+    System.out.println(b.getName());
+  }
+
 }
 
 class Shape {
-	private String name;
-	
-	Shape() {
-		this.name="shape";
-	}
+  private String name;
 
-	public String getName() {
-		return name;
-	}
+  Shape() {
+    this.name = "shape";
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
+  public String getName() {
+    return name;
+  }
+
+  public void setName(final String name) {
+    this.name = name;
+  }
+
 }
 
 class Ball extends Shape {
-	private String name;
-	
-	Ball() {
-		this.name="ball";
-	}
+  private final String name;
+
+  Ball() {
+    this.name = "ball";
+  }
 }
