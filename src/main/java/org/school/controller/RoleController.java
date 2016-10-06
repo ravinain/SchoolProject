@@ -34,7 +34,7 @@ public final class RoleController {
 
   /** RoleService. */
   @Autowired
-  RoleService roleService;
+  private RoleService roleService;
 
   /** ApplicationContext. */
   @Autowired

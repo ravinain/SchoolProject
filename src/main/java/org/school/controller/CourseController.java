@@ -170,7 +170,7 @@ public final class CourseController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(
-      value = {"/course/update/{id:[1-9]{1}[0-9]*}"}, method = RequestMethod.PUT
+      value = "/course/update/{id:[1-9]{1}[0-9]*}", method = RequestMethod.PUT
   )
   @ResponseBody
   public ResponseEntity<?> updateCourse(@PathVariable("id") final int id,
@@ -191,7 +191,7 @@ public final class CourseController {
    * @return {@link ResponseEntity}
    */
   @RequestMapping(
-      value = {"/course/delete/{id:[1-9]{1}[0-9]*}"},
+      value = "/course/delete/{id:[1-9]{1}[0-9]*}",
       method = RequestMethod.DELETE
   )
   @ResponseBody
