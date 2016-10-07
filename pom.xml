@@ -192,10 +192,10 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
-					<configLocation>src/main/resources/checkstyle.xml</configLocation>
+					<!-- <configLocation>src/main/resources/checkstyle-checker.xml</configLocation> -->
 					<!-- <propertiesLocation>src/main/resources</propertiesLocation> -->
-					<!-- <suppressionsLocation>src/main/resources/checkstyle-suppress.xml</suppressionsLocation>
-					<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression> -->
+					<suppressionsLocation>src/main/resources/checkstyle-suppress.xml</suppressionsLocation>
+					<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -44,7 +44,6 @@ public final class StudentDaoImpl implements StudentDao {
     final Set<Subject> subjects = student.getSubjects();
     for (final Subject subject : subjects) {
       subject.getStudents().clear();
-      ;
     }
     // Remove student from course's Student property
     student.getCourse().getStudents().clear();
