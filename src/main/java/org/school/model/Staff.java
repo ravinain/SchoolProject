@@ -25,18 +25,22 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 public final class Staff extends Person {
 
+  /** Staff Id. */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+  /** Staff Salary. */
   @Min(100)
   private double salary;
 
+  /** Staff association with Role. */
   @OneToMany(mappedBy = "staff", fetch = FetchType.EAGER)
   @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE })
   @NotEmpty
   private Set<Role> roles = new HashSet<Role>();
 
+  /** Subject association with Staff. */
   @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
   @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE })
   private Set<Subject> subjects = new HashSet<Subject>();

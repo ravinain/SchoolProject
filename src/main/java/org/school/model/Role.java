@@ -21,13 +21,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table
 public final class Role {
 
+  /** Role Id. */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+  /** Role Name. */
   @NotEmpty
   private String name;
 
+  /** Staff association with Role. */
   @ManyToOne
   @JoinTable(
       name = "role_staff",

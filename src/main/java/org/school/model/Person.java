@@ -11,17 +11,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 @MappedSuperclass
 public class Person {
 
+  /** Name. */
   @NotEmpty
   private String name;
 
+  /** Age. */
   private int age;
+  /** Gender. */
   private String gender;
 
   /**
    * get name.
    * @return name
    */
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
@@ -30,7 +33,7 @@ public class Person {
    * @param name
    *          name
    */
-  public void setName(final String name) {
+  public final void setName(final String name) {
     this.name = name;
   }
 
@@ -38,7 +41,7 @@ public class Person {
    * get age.
    * @return age
    */
-  public int getAge() {
+  public final int getAge() {
     return age;
   }
 
@@ -47,7 +50,7 @@ public class Person {
    * @param age
    *          age
    */
-  public void setAge(final int age) {
+  public final void setAge(final int age) {
     this.age = age;
   }
 
@@ -55,7 +58,7 @@ public class Person {
    * get gender.
    * @return gender
    */
-  public String getGender() {
+  public final String getGender() {
     return gender;
   }
 
@@ -64,7 +67,7 @@ public class Person {
    * @param gender
    *          gender
    */
-  public void setGender(final String gender) {
+  public final void setGender(final String gender) {
     this.gender = gender;
   }
 }

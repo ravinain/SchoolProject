@@ -28,28 +28,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table
 public final class Subject implements Comparable<Subject> {
 
+  /** Subject ID. */
   @Id
   @Column
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+  /** Description. */
   @NotEmpty
   private String description;
 
+  /** Staffs. */
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "subject_staff", joinColumns = {
-      @JoinColumn(name = "subject_id", referencedColumnName = "id") }, inverseJoinColumns = {
-          @JoinColumn(name = "staff_id", referencedColumnName = "id") })
+  @JoinTable(
+      name = "subject_staff",
+      joinColumns = @JoinColumn(
+          name = "subject_id", referencedColumnName = "id"
+      ), inverseJoinColumns = @JoinColumn(
+          name = "staff_id", referencedColumnName = "id"
+      )
+  )
   @JsonIgnore
   private Set<Staff> staffs = new HashSet<Staff>();
 
+  /** Courses. */
   @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
-  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
   @JsonIgnore
   private Set<Course> courses = new HashSet<Course>();
 
+  /** Students. */
   @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER)
-  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
   @JsonIgnore
   private Set<Student> students = new HashSet<Student>();
 

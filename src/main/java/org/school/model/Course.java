@@ -29,22 +29,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table
 public final class Course {
 
+  /** Course ID. */
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+  /** Course Description. */
   @NotEmpty
   private String description;
 
+  /** Subjects associated with Course. */
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "subject_course", joinColumns = {
-      @JoinColumn(name = "subject_id", referencedColumnName = "id") }, inverseJoinColumns = {
-          @JoinColumn(name = "course_id", referencedColumnName = "id") })
+  @JoinTable(
+      name = "subject_course",
+      joinColumns = @JoinColumn(
+          name = "subject_id", referencedColumnName = "id"
+      ), inverseJoinColumns = @JoinColumn(
+          name = "course_id", referencedColumnName = "id"
+      )
+  )
   private Set<Subject> subjects = new HashSet<Subject>();
 
+  /** Students association with Course. */
   @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-  @Cascade({ CascadeType.DELETE, CascadeType.SAVE_UPDATE })
+  @Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
   @JsonIgnore
   private Set<Student> students = new HashSet<Student>();
 

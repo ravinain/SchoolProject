@@ -42,12 +42,11 @@ public final class StaffDaoImpl implements StaffDao {
     final Session session = sessionFactory.getCurrentSession();
     session.save(staff);
     for (final Role role : staff.getRoles()) {
-      final Role role1 = roleDao.getRole(role.getId());
-      role1.setStaff(staff);
+      roleDao.getRole(role.getId()).setStaff(staff);
     }
+
     for (final Subject subject : staff.getSubjects()) {
-      final Subject subject1 = subjectDao.getSubject(subject.getId());
-      subject1.getStaffs().add(staff);
+      subjectDao.getSubject(subject.getId()).getStaffs().add(staff);
     }
     session.merge(staff);
     return staff;
@@ -120,9 +119,9 @@ public final class StaffDaoImpl implements StaffDao {
   /**
    * {@inheritDoc}.
    */
-  public Staff updateStaff(Staff staff) {
+  public Staff updateStaff(final Staff staff) {
     final Session session = sessionFactory.getCurrentSession();
-    staff = (Staff) session.merge(staff);
+    session.merge(staff);
     for (final Role role : staff.getRoles()) {
       final Role role1 = roleDao.getRole(role.getId());
       role1.setStaff(staff);

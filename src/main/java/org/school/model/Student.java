@@ -24,22 +24,34 @@ import javax.validation.constraints.NotNull;
 @Table
 public final class Student extends Person {
 
+  /** Student ID. */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+  /** Course. */
   @NotNull
   @Valid
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(name = "student_course", joinColumns = {
-      @JoinColumn(name = "student_id", referencedColumnName = "id") }, inverseJoinColumns = {
-          @JoinColumn(name = "course_id", referencedColumnName = "id") })
+  @JoinTable(
+      name = "student_course",
+      joinColumns = @JoinColumn(
+          name = "student_id", referencedColumnName = "id"
+      ), inverseJoinColumns = @JoinColumn(
+          name = "course_id", referencedColumnName = "id"
+      )
+  )
   private Course course;
 
+  /** Subjects. */
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "student_subject", joinColumns = {
-      @JoinColumn(name = "student_id", referencedColumnName = "id") }, inverseJoinColumns = {
-          @JoinColumn(name = "subject_id", referencedColumnName = "id") })
+  @JoinTable(
+      name = "student_subject",
+      joinColumns = {
+          @JoinColumn(name = "student_id", referencedColumnName = "id")},
+      inverseJoinColumns = {
+          @JoinColumn(name = "subject_id", referencedColumnName = "id")}
+  )
   private Set<Subject> subjects = new HashSet<Subject>();
 
   /**
