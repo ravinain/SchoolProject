@@ -8,6 +8,7 @@ import org.school.response.Message;
 import org.school.response.MessageList;
 import org.school.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +22,10 @@ import org.springframework.validation.FieldError;
 @Service(value = "subjectService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class SubjectServiceImpl implements SubjectService {
+
+  /** */
+  @Autowired
+  private ApplicationContext context;
 
   /** Subject DAO. */
   @Autowired
@@ -56,11 +61,11 @@ public final class SubjectServiceImpl implements SubjectService {
    */
   public MessageList saveSubject(final Subject subject,
       final BindingResult result) {
-    final MessageList messageList = new MessageList();
+    final MessageList messageList = context.getBean(MessageList.class);
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -69,7 +74,7 @@ public final class SubjectServiceImpl implements SubjectService {
     } else if (!isSubjectExists(subject.getDescription())) {
       subjectDao.saveSubject(subject);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("subject");
       message.setMessage("Subject already exists!");
       messageList.addMessage(message);
@@ -82,11 +87,11 @@ public final class SubjectServiceImpl implements SubjectService {
    */
   public MessageList updateSubject(final Subject subject,
       final BindingResult result) {
-    final MessageList messageList = new MessageList();
+    final MessageList messageList = context.getBean(MessageList.class);
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -95,7 +100,7 @@ public final class SubjectServiceImpl implements SubjectService {
     } else if (isSubjectExists(subject.getId())) {
       subjectDao.updateSubject(subject);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("subject");
       message
           .setMessage("Subject ID : " + subject.getId() + ", does not exists!");

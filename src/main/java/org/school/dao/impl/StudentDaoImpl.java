@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * {@inheritDoc}.
  */
 @Repository(value = "studentRepo")
-public final class StudentDaoImpl implements StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
   /** Session Factory. */
   @Autowired

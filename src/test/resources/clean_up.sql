@@ -1,0 +1,1 @@
+delete from school-repo-test.course;

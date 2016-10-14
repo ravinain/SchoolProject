@@ -8,6 +8,7 @@ import org.school.response.Message;
 import org.school.response.MessageList;
 import org.school.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,6 +23,10 @@ import org.springframework.validation.FieldError;
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class RoleServiceImpl implements RoleService {
 
+  /** */
+  @Autowired
+  private ApplicationContext context;
+
   /** Message Source. */
   @Autowired
   private MessageSource messageSource;
@@ -34,11 +39,11 @@ public final class RoleServiceImpl implements RoleService {
    * {@inheritDoc}.
    */
   public MessageList saveRole(final Role role, final BindingResult result) {
-    final MessageList messageList = new MessageList();
+    final MessageList messageList = context.getBean(MessageList.class);
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -47,7 +52,7 @@ public final class RoleServiceImpl implements RoleService {
     } else if (!roleDao.isRoleExists(role.getName())) {
       roleDao.saveRole(role);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("role");
       message.setMessage("Role already exists!");
       messageList.addMessage(message);
@@ -63,7 +68,7 @@ public final class RoleServiceImpl implements RoleService {
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -72,7 +77,7 @@ public final class RoleServiceImpl implements RoleService {
     } else if (roleDao.isRoleExists(role.getId())) {
       roleDao.updateRole(role);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("role");
       message.setMessage("Role does not exists!");
       messageList.addMessage(message);

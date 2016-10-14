@@ -68,5 +68,6 @@
 	<context:property-placeholder location="classpath:messages.properties" />
 
 	<import resource="/hibernate-config.xml" />
+	<import resource="/hibernate-config-test.xml" />
 
 </beans>

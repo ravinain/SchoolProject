@@ -8,6 +8,7 @@ import org.school.response.Message;
 import org.school.response.MessageList;
 import org.school.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +22,10 @@ import org.springframework.validation.FieldError;
 @Service(value = "staffService")
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public final class StaffServiceImpl implements StaffService {
+
+  /** */
+  @Autowired
+  private ApplicationContext context;
 
   /** Staff Dao. */
   @Autowired
@@ -48,11 +53,11 @@ public final class StaffServiceImpl implements StaffService {
    * {@inheritDoc}.
    */
   public MessageList addStaff(final Staff staff, final BindingResult result) {
-    final MessageList messageList = new MessageList();
+    final MessageList messageList = context.getBean(MessageList.class);
     if (result != null && result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -61,7 +66,7 @@ public final class StaffServiceImpl implements StaffService {
     } else if (!staffDao.isStaffExists(staff.getName())) {
       staffDao.addStaff(staff);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("staff");
       message.setMessage("Staff already exists!");
       messageList.addMessage(message);
@@ -74,11 +79,11 @@ public final class StaffServiceImpl implements StaffService {
    */
   public MessageList updateStaff(final int id, final Staff staff,
       final BindingResult result) {
-    final MessageList messageList = new MessageList();
+    final MessageList messageList = context.getBean(MessageList.class);
     if (result.hasErrors()) {
       final List<FieldError> fieldErrors = result.getFieldErrors();
       for (final FieldError fieldError : fieldErrors) {
-        final Message message = new Message();
+        final Message message = context.getBean(Message.class);
         message.setField(fieldError.getField());
         message.setMessage(
             messageSource.getMessage(fieldError.getCodes()[0], null, null));
@@ -87,7 +92,7 @@ public final class StaffServiceImpl implements StaffService {
     } else if (staffDao.isStaffExists(id)) {
       staffDao.updateStaff(staff);
     } else {
-      final Message message = new Message();
+      final Message message = context.getBean(Message.class);
       message.setField("staff");
       message.setMessage("Staff ID : " + staff.getId() + ", does not exists!");
       messageList.addMessage(message);

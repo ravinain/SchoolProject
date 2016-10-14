@@ -21,8 +21,8 @@ import org.springframework.validation.FieldError;
  * {@inheritDoc}.
  */
 @Service(value = "courseService")
-@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-public final class CourseServiceImpl implements CourseService {
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+public class CourseServiceImpl implements CourseService {
 
   /** Message Source. */
   @Autowired
@@ -134,4 +134,5 @@ public final class CourseServiceImpl implements CourseService {
   public Course getCourse(final String description) {
     return courseDao.getCourse(description);
   }
+
 }

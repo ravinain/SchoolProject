@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd" profile="test">
 
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://localhost:3306/school-repo" p:username="user"
-		p:password="password" />
+		p:url="jdbc:mysql://localhost:3306/school-repo-test" p:username="user"
+		p:password="password"/>
+
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
@@ -32,14 +31,14 @@
 		<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 		<prop key="hibernate.hbm2ddl.auto">update</prop>
 		<prop key="hibernate.show_sql">true</prop>
-		<prop key="hibernate.format_sql">true</prop>
+		<!-- <prop key="hibernate.format_sql">true</prop> -->
 		<!-- <prop key="hibernate.enable_lazy_load_no_trans">true</prop> -->
 	</util:properties>
 
 	<!-- Add spring transaction -->
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
-		p:sessionFactory-ref="sessionFactory" />
-		
-	<tx:annotation-driven transaction-manager="txManager"/>
+		p:sessionFactory-ref="sessionFactory"/>
+
+	<tx:annotation-driven transaction-manager="txManager" />
 </beans>

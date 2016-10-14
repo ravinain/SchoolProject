@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table
-public final class Student extends Person {
+public class Student extends Person {
 
   /** Student ID. */
   @Id

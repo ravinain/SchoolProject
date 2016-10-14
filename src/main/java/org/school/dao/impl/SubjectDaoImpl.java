@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 /**
  * {@inheritDoc}.
  */
-@Repository(value = "subjectDao")
-public final class SubjectDaoImpl implements SubjectDao {
+@Repository(value = "subjectRepo")
+public class SubjectDaoImpl implements SubjectDao {
 
   /** Session Factory. */
   @Autowired
