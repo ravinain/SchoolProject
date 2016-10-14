@@ -5,7 +5,7 @@
 
 <suppressions>
   <suppress checks="HiddenFieldCheck" files="org.school.model.*.java"/>
-  <!-- <suppress checks="FinalClassCheck" files="org.school.model.*.java"/> -->
+  <suppress checks="DesignForExtensionCheck" files="org.school.*.*.java"/>
   <suppress checks="MagicNumberCheck" files="org.school.model.*.java"/>
   <suppress checks="HiddenFieldCheck" files="org.school.exception.*.java"/>
   <suppress checks="HiddenFieldCheck" files="org.school.response.*.java"/>
